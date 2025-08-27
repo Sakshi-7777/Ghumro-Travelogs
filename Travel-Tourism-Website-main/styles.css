@@ -1,0 +1,150 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   background-image: url("https://burst.shopifycdn.com/photos/clouds-from-aircraft-window.jpg?width=1000&format=pjpg&exif=0&iptc=0");
+   background-size: cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: transparent;
+}
+
+.login-box {
+    background: #ffffff;
+    padding: 50px;
+    border-radius: 50px;
+    border: 2px solid black;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 30);
+    text-align: center;
+    position: relative;
+    width: 350px;
+    animation: fadeIn 1s ease-out;
+    background: transparent;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.avatar {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid ;
+}
+
+.login-form h2 {
+    margin-bottom: 30px;
+    color: black;
+    font-size: 24px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    outline: none;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: #333;
+}
+
+.input-group label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    pointer-events: none;
+    font-size: 16px;
+    color: black;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: black;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    right: -25px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    clip-path: polygon(100% 50%, 0 0, 0 100%);
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.input-group input:focus ~ .arrow,
+.input-group input:valid ~ .arrow {
+    right: -10px;
+    opacity: 1;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: gray;
+}
+
+button span {
+    position: relative;
+    z-index: 2;
+}
+
+.slide-arrow {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    clip-path: polygon(100% 50%, 0 0, 0 100%);
+    transform: translateY(-50%) translateX(-20px);
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+button:hover .slide-arrow {
+    transform: translateY(-50%) translateX(110px);
+}

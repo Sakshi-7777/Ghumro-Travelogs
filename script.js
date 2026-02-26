@@ -42,8 +42,28 @@ const db = {
     }
 };
 
+// --- INITIALIZE FIREBASE (Placeholder) ---
+const firebaseConfig = {
+    apiKey: "FIREBASE_API_KEY_PLACEHOLDER",
+    authDomain: "ghumro-platinum.firebaseapp.com",
+    projectId: "ghumro-platinum",
+    storageBucket: "ghumro-platinum.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef123456"
+};
+
+// Start Firebase if explicitly needed (Mocked for initial Level)
+let db_fs = null;
+try {
+    firebase.initializeApp(firebaseConfig);
+    db_fs = firebase.firestore();
+} catch (e) {
+    console.warn("Firebase initialized with placeholders. Live sync disabled.");
+}
+
 // --- PLATINUM ENGINE ---
 let activeTarget = 'Manali';
+let totalAmount = 0;
 
 // Reveal On Scroll
 const observer = new IntersectionObserver((entries) => {
@@ -98,7 +118,8 @@ function runRealView(loc) {
         let deg = 0;
         setInterval(() => {
             deg += 1;
-            document.getElementById('hudCompass').style.transform = `rotate(${deg}deg)`;
+            const compass = document.getElementById('hudCompass');
+            if (compass) compass.style.transform = `rotate(${deg}deg)`;
         }, 60);
 
         overlay.innerHTML = `
@@ -154,36 +175,72 @@ function openEliteDetail(name) {
             <h4><i class="fas fa-map-marker-alt"></i> Top Attractions</h4>
             <ul>${data.attractions.map(a => `<li>${a}</li>`).join('')}</ul>
         </div>
-        <button class="btn-premium" style="width:100%;" onclick="openOrder()">Request Reservation</button>
+        <button class="btn-premium" style="width:100%;" onclick="openPaymentGateway()">Secure Reservation</button>
     `;
     modal.style.display = 'block';
 }
 
 function closeEliteModal() { document.getElementById('eliteModal').style.display = 'none'; }
 
-function openOrder() {
+// --- PAYMENT & FIREBASE SYNC ---
+function openPaymentGateway() {
     const data = db[activeTarget];
-    document.getElementById('orderSummary').innerHTML = `
-        <p style="margin-bottom:10px;">Platinum Package: <strong>${activeTarget}</strong></p>
-        <p>Base Fee: <strong>₹${data.price.toLocaleString()}</strong></p>
-        <p>Luxury Tax: <strong>₹2,450</strong></p>
-        <hr style="margin:20px 0;">
-        <h3 style="color:#3a7bd5;">Total: ₹${(data.price + 2450).toLocaleString()}</h3>
-    `;
-    document.getElementById('orderModal').style.display = 'block';
+    totalAmount = data.price + 2450; // Tax
+    document.getElementById('finalPaymentAmount').innerText = `Total Amount: ₹${totalAmount.toLocaleString()}`;
+    document.getElementById('paymentModal').style.display = 'block';
     closeEliteModal();
 }
 
-function closeOrderModal() { document.getElementById('orderModal').style.display = 'none'; }
+function closePaymentModal() {
+    document.getElementById('paymentModal').style.display = 'none';
+}
 
-function confirmOrder() {
-    alert(`Platinum Reservation Confirmed for ${activeTarget}. Welcome to the club.`);
-    closeOrderModal();
+function updateCardPreview() {
+    const name = document.getElementById('cardName').value || "PLATINUM MEMBER";
+    const num = document.getElementById('cardNum').value || "**** **** **** ****";
+    const expiry = document.getElementById('cardExpiry').value || "MM/YY";
+
+    document.getElementById('previewName').innerText = name.toUpperCase();
+    document.getElementById('previewCardNum').innerText = num;
+    document.getElementById('previewExpiry').innerText = expiry;
+}
+
+document.getElementById('paymentForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    processTransaction();
+});
+
+function processTransaction() {
+    const processing = document.getElementById('paymentProcessing');
+    const success = document.getElementById('paymentSuccess');
+
+    processing.style.display = 'flex';
+
+    // Simulate Firestore Log
+    const bookingData = {
+        destination: activeTarget,
+        amount: totalAmount,
+        timestamp: new Date().toISOString(),
+        status: 'PAID',
+        member: document.getElementById('cardName').value || "Anonymous Platinum"
+    };
+
+    console.log("Syncing to Firebase Firestore...", bookingData);
+    if (db_fs) {
+        db_fs.collection('bookings').add(bookingData)
+            .then(() => console.log("Transaction Hard-Logged to Firebase"))
+            .catch(err => console.error("Firebase Sync Delayed:", err));
+    }
+
+    setTimeout(() => {
+        processing.style.display = 'none';
+        success.style.display = 'flex';
+    }, 2500);
 }
 
 window.onclick = (e) => {
     if (e.target.className === 'modal') {
         closeEliteModal();
-        closeOrderModal();
+        closePaymentModal();
     }
 };

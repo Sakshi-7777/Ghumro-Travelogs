@@ -164,26 +164,80 @@
         </div>
     </div>
 
-    <!-- Booking Modal -->
-    <div id="orderModal" class="modal">
+    <!-- Platinum Payment Modal -->
+    <div id="paymentModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeOrderModal()">&times;</span>
+            <span class="close-btn" onclick="closePaymentModal()">&times;</span>
             <div class="section-header">
-                <h2>Platinum Reservation</h2>
+                <span class="sub-title">Secure Gateway</span>
+                <h2>Platinum Payment</h2>
                 <div class="underline"></div>
             </div>
-            <div id="orderSummary" style="margin-bottom: 30px;"></div>
-            <button class="btn-premium" style="width: 100%;" onclick="confirmOrder()">Confirm & Pay</button>
+
+            <div class="payment-box">
+                <div class="card-display">
+                    <div class="card-chip"></div>
+                    <div class="card-number" id="previewCardNum">**** **** **** ****</div>
+                    <div class="card-bottom">
+                        <span id="previewName">PLATINUM MEMBER</span>
+                        <span id="previewExpiry">MM/YY</span>
+                    </div>
+                </div>
+
+                <form id="paymentForm" class="payment-form">
+                    <div class="input-field">
+                        <label>Cardholder Name</label>
+                        <input type="text" id="cardName" placeholder="John Doe" oninput="updateCardPreview()">
+                    </div>
+                    <div class="input-field">
+                        <label>Card Number</label>
+                        <input type="text" id="cardNum" placeholder="1234 5678 9101 1121" maxlength="19"
+                            oninput="updateCardPreview()">
+                    </div>
+                    <div class="form-row">
+                        <div class="input-field">
+                            <label>Expiry Date</label>
+                            <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5"
+                                oninput="updateCardPreview()">
+                        </div>
+                        <div class="input-field">
+                            <label>CVV</label>
+                            <input type="password" id="cardCvv" placeholder="***" maxlength="3">
+                        </div>
+                    </div>
+                    <div class="payment-summary" id="finalPaymentAmount">
+                        Total Amount: ₹0
+                    </div>
+                    <button type="submit" class="btn-premium" style="width: 100%;">Authorize Payment</button>
+                </form>
+            </div>
+
+            <div id="paymentProcessing" class="processing-overlay" style="display: none;">
+                <div class="spinner"></div>
+                <h3>Securing Transaction...</h3>
+                <p>Establishing encrypted link to Platinum Servers</p>
+            </div>
+
+            <div id="paymentSuccess" class="success-overlay" style="display: none;">
+                <i class="fas fa-check-circle"></i>
+                <h2>Payment Successful</h2>
+                <p>Your Platinum Ticket has been issued.</p>
+                <button class="btn-premium" onclick="location.reload()">Return Home</button>
+            </div>
         </div>
     </div>
 
-    <footer class="section-p1">
+    <footer>
         <div class="footer-logo">
             <i class="fas fa-gem"></i>
             <span>Ghumro <strong>Platinum</strong></span>
         </div>
         <p>© 2026 The Elite Travel Club. Integrated with Mappls RealView.</p>
     </footer>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
 
     <script src="script.js"></script>
 </body>

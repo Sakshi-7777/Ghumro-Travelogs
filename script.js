@@ -1,162 +1,155 @@
-// --- DESTINATION METADATA (High-End Detailing) ---
+// --- DESTINATION METADATA ---
 const destData = {
     'Manali': {
         price: 8500,
-        attractions: ['Rohtang Pass', 'Solang Valley', 'Hadimba Temple', 'Old Manali Cafes'],
-        time: 'October to June (Best for Snow: Dec-Feb)',
-        cuisine: 'Siddu, Thukpa, and Trout Fish'
-    },
-    'Kerala': {
-        price: 12000,
-        attractions: ['Alleppey Houseboats', 'Munnar Tea Gardens', 'Varkala Beach', 'Thekkady Wildlife'],
-        time: 'September to March',
-        cuisine: 'Appam with Stew, Karimeen Pollichathu, and Puttu'
-    },
-    'Ladakh': {
-        price: 18500,
-        attractions: ['Pangong Lake', 'Nubra Valley', 'Shanti Stupa', 'Magnetic Hill'],
-        time: 'May to September',
-        cuisine: 'Momos, Skyu, and Butter Tea',
-        coords: '34.1526° N, 77.5771° E'
-    },
-    'Goa': {
-        price: 5500,
-        attractions: ['Vagator Beach', 'Basilica of Bom Jesus', 'Dudhsagar Falls', 'Anjuna Flea Market'],
-        time: 'November to February',
-        cuisine: 'Fish Recheado, Bebinca, and Prawn Balchão',
-        coords: '15.2993° N, 74.1240° E'
-    },
-    'Udaipur': {
-        price: 10500,
-        attractions: ['City Palace', 'Lake Pichola', 'Jagdish Temple', 'Fateh Sagar Lake'],
-        time: 'September to March',
-        cuisine: 'Laal Maas, Dal Bati Churma, and Ker Sangri',
-        coords: '24.5854° N, 73.7125° E'
-    },
-    'Sikkim': {
-        price: 14000,
-        attractions: ['Tsomgo Lake', 'Nathula Pass', 'Rumtek Monastery', 'Gurudongmar Lake'],
-        time: 'March to May / October to December',
-        cuisine: 'Phagshapa, Gundruk, and Sael Roti',
-        coords: '27.3314° N, 88.6138° E'
-    },
-    'Manali': {
-        price: 8500,
-        attractions: ['Rohtang Pass', 'Solang Valley', 'Hadimba Temple', 'Old Manali Cafes'],
-        time: 'October to June (Best for Snow: Dec-Feb)',
-        cuisine: 'Siddu, Thukpa, and Trout Fish',
+        attractions: ['Rohtang Pass', 'Solang Valley', 'Hadimba Temple', 'Old Manali'],
+        time: 'Oct to June',
+        cuisine: 'Siddu, Thukpa',
         coords: '32.2432° N, 77.1892° E'
     },
     'Kerala': {
         price: 12000,
-        attractions: ['Alleppey Houseboats', 'Munnar Tea Gardens', 'Varkala Beach', 'Thekkady Wildlife'],
-        time: 'September to March',
-        cuisine: 'Appam with Stew, Karimeen Pollichathu, and Puttu',
+        attractions: ['Alleppey Houseboats', 'Munnar Tea Gardens', 'Varkala Beach'],
+        time: 'Sept to March',
+        cuisine: 'Appam, Karimeen',
         coords: '9.4981° N, 76.3388° E'
+    },
+    'Ladakh': {
+        price: 18500,
+        attractions: ['Pangong Lake', 'Nubra Valley', 'Shanti Stupa'],
+        time: 'May to Sept',
+        cuisine: 'Momos, Skyu',
+        coords: '34.1526° N, 77.5771° E'
+    },
+    'Goa': {
+        price: 5500,
+        attractions: ['Vagator Beach', 'Basilica of Bom Jesus', 'Anjuna Market'],
+        time: 'Nov to Feb',
+        cuisine: 'Fish Recheado, Bebinca',
+        coords: '15.2993° N, 74.1240° E'
     }
 };
 
-// --- SMART BUDGET ADVISOR ---
+// --- AUTH LOGIC ---
+if (document.getElementById('loginForm')) {
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        window.location.href = 'home.html';
+    });
+}
+
+if (document.getElementById('registerForm')) {
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Registered! Redirecting...');
+        window.location.href = 'home.html';
+    });
+}
+
+const showRegister = document.getElementById('showRegister');
+const showLogin = document.getElementById('showLogin');
+
+if (showRegister) {
+    showRegister.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('registerForm').style.display = 'block';
+    });
+}
+
+if (showLogin) {
+    showLogin.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('registerForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+    });
+}
+
+// --- BUDGET ADVISOR ---
 function suggestDestinations() {
     const budget = parseInt(document.getElementById('userBudget').value);
     const container = document.getElementById('budgetSuggestions');
+    if (!budget) return;
 
-    if (!budget) {
-        container.innerHTML = '<p class="placeholder-text">Enter a budget to see where you can go...</p>';
+    const matches = Object.keys(destData).filter(key => destData[key].price <= budget);
+    if (matches.length === 0) {
+        container.innerHTML = '<p>No matches found for this budget.</p>';
         return;
     }
 
-    let suggestions = Object.keys(destData).filter(key => destData[key].price <= budget);
-
-    if (suggestions.length === 0) {
-        container.innerHTML = '<p class="placeholder-text" style="color: #FF385C;">Maybe save a bit more? Or try a smaller trip!</p>';
-    } else {
-        container.innerHTML = suggestions.map(name => `
-            <div class="suggest-card" onclick="openDetailModal('${name}')">
-                <h4>${name}</h4>
-                <p>Est. ₹${destData[name].price.toLocaleString()}</p>
-                <small>View Details</small>
-            </div>
-        `).join('');
-    }
+    container.innerHTML = matches.map(name => `
+        <div class="suggest-card" onclick="openDetailModal('${name}')">
+            <h4>${name}</h4>
+            <p>From ₹${destData[name].price.toLocaleString()}</p>
+        </div>
+    `).join('');
 }
 
-// --- AR/VR PORTAL SIMULATOR ---
-function startVRExperience(loc) {
+// --- MAPPLS REALVIEW ---
+function startMapplsRealView(loc) {
     const viewer = document.getElementById('vr-viewer');
-    const overlay = document.querySelector('.vr-overlay');
+    const hud = document.getElementById('hudOverlay');
+    const content = document.querySelector('.vr-content');
+    const coords = document.getElementById('hudCoords');
 
-    overlay.innerHTML = `<h3>Syncing Neural Link...</h3><p>Entering ${loc} 360° Vision...</p>`;
+    content.style.display = 'none';
+    hud.style.display = 'flex';
+    coords.innerText = destData[loc].coords;
 
-    setTimeout(() => {
-        viewer.style.opacity = '1';
-        viewer.style.transform = 'scale(1.2)';
+    if (loc === 'Manali') {
+        viewer.style.backgroundImage = "url('https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&q=80&w=1920')";
+    } else if (loc === 'Ladakh') {
+        viewer.style.backgroundImage = "url('https://images.unsplash.com/photo-1549130031-653927772886?auto=format&fit=crop&q=80&w=1920')";
+    } else {
+        viewer.style.backgroundImage = "url('https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&q=80&w=1920')";
+    }
 
-        if (loc === 'Himalayas') {
-            viewer.style.backgroundImage = "url('https://images.unsplash.com/photo-1549130031-653927772886?auto=format&fit=crop&q=80&w=1920')";
-        } else {
-            viewer.style.backgroundImage = "url('https://images.unsplash.com/photo-1506929113675-b929da606dc8?auto=format&fit=crop&q=80&w=1920')";
-        }
-
-        setTimeout(() => {
-            alert(`Virtual Reality Experience: Welcome to ${loc}! Use your imagine to pan around.`);
-            overlay.innerHTML = `
-                <span class="sub-title">Session Active</span>
-                <h2>You are in ${loc}</h2>
-                <button class="vr-btn" onclick="location.reload()">Exit VR Portal</button>
-            `;
-        }, 1000);
-    }, 1500);
+    let angle = 0;
+    setInterval(() => {
+        angle += 1;
+        document.getElementById('hudCompass').style.transform = `rotate(${angle}deg)`;
+    }, 50);
 }
 
-// --- DETAILING MODAL LOGIC ---
-function openDetailModal(name) {
-    const data = destData[name];
-    if (!data) return;
+// --- MODAL LOGIC ---
+let activeDest = '';
 
+function openDetailModal(name) {
+    activeDest = name;
+    const data = destData[name];
     document.getElementById('detName').innerText = name;
-    document.getElementById('detPrice').innerText = `₹${data.price.toLocaleString()}`;
+    document.getElementById('detPrice').innerText = `Starting at ₹${data.price.toLocaleString()}`;
     document.getElementById('detTime').innerText = data.time;
     document.getElementById('detCuisine').innerText = data.cuisine;
-
-    const attractionsList = document.getElementById('detAttractions');
-    attractionsList.innerHTML = data.attractions.map(attr => `<li>${attr}</li>`).join('');
-
+    document.getElementById('detAttractions').innerHTML = data.attractions.map(a => `<li>${a}</li>`).join('');
     document.getElementById('detailModal').style.display = 'block';
-
-    // Pass name to booking modal for later
-    window.lastViewedDestination = name;
 }
 
-function closeDetailModal() {
-    document.getElementById('detailModal').style.display = 'none';
-}
+function closeDetailModal() { document.getElementById('detailModal').style.display = 'none'; }
 
-// --- BOOKING LOGIC ---
-function openBookingModal(name) {
-    const dest = name || window.lastViewedDestination || 'Manali';
-    const data = destData[dest] || { price: 8500 };
-
-    document.getElementById('selectedDest').innerText = dest;
-    const total = data.price + 1250; // price + mock tax
-    document.getElementById('totalPrice').innerText = `₹${total.toLocaleString()}`;
-
+function openBookingModal() {
+    const price = destData[activeDest].price;
+    document.getElementById('bookingSummary').innerHTML = `
+        <p>Destination: <strong>${activeDest}</strong></p>
+        <p>Package Price: <strong>₹${price.toLocaleString()}</strong></p>
+        <p>Taxes & Fees: <strong>₹1,250</strong></p>
+        <hr>
+        <p style="font-size: 1.2rem; margin-top:10px;">Total: <strong>₹${(price + 1250).toLocaleString()}</strong></p>
+    `;
     document.getElementById('bookingModal').style.display = 'block';
     closeDetailModal();
 }
 
-function closeBookingModal() {
-    document.getElementById('bookingModal').style.display = 'none';
-}
+function closeBookingModal() { document.getElementById('bookingModal').style.display = 'none'; }
 
 function processBooking() {
-    alert('High-End Transaction Secure. Trip Confirmed! Check your email for VR boarding pass.');
+    alert(`Booking Confirmed for ${activeDest}! Check your email for details.`);
     closeBookingModal();
 }
 
-// --- GLOBAL UTILS ---
 window.onclick = function (event) {
     if (event.target.className === 'modal') {
-        event.target.style.display = 'none';
+        closeDetailModal();
+        closeBookingModal();
     }
 }

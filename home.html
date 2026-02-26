@@ -11,98 +11,106 @@
 </head>
 
 <body>
-    <!-- Navbar -->
     <header>
         <nav class="glass-nav">
             <div class="logo">
-                <i class="fas fa-paper-plane"></i>
+                <i class="fas fa-globe-americas"></i>
                 <span>Ghumro</span>
             </div>
             <ul class="nav-links">
                 <li><a href="#" class="active">Home</a></li>
-                <li><a href="#destinations">Explore</a></li>
-                <li><a href="#vr-portal">VR Portal</a></li>
-                <li><a href="#budget-advisor">Budget Planner</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#mappls-realview">Mappls 360°</a></li>
+                <li><a href="#budget-planner">Budget Planner</a></li>
                 <li><a href="index.html" class="logout-btn">Logout</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section id="hero">
             <div class="hero-content">
-                <h1 class="animate-up">Journey Beyond <span>Limits</span></h1>
-                <p class="animate-up delay-1">Premium experiences, AR/VR previews, and smart budgeting for the elite
-                    explorer.</p>
+                <h1 class="animate-up">Discover Your Next <span>Adventure</span></h1>
+                <p class="animate-up delay-1">Explore stunning destinations, book luxury stays, and create unforgettable
+                    memories with Ghumro Travelogs.</p>
 
                 <div class="search-container animate-up delay-2">
                     <div class="search-tabs">
-                        <button class="tab-btn active"><i class="fas fa-plane"></i> Flights</button>
-                        <button class="tab-btn"><i class="fas fa-hotel"></i> Hotels</button>
-                        <button class="tab-btn"><i class="fas fa-vr-cardboard"></i> VR Tours</button>
+                        <button class="tab-btn active" data-tab="flights"><i class="fas fa-plane"></i> Flights</button>
+                        <button class="tab-btn" data-tab="hotels"><i class="fas fa-hotel"></i> Hotels</button>
                     </div>
                     <div class="search-bar">
                         <div class="input-box">
-                            <label>Destination</label>
-                            <input type="text" placeholder="Where to next?">
+                            <label>Location</label>
+                            <input type="text" placeholder="Where are you going?">
                         </div>
                         <div class="input-box">
-                            <label>Travel Type</label>
-                            <select>
-                                <option>Solo Wanderer</option>
-                                <option>Leisure Family</option>
-                                <option>Adventure Trek</option>
-                            </select>
+                            <label>Date</label>
+                            <input type="date">
                         </div>
-                        <button class="search-btn" onclick="openBookingModal()"><i class="fas fa-search"></i> Check
-                            Availability</button>
+                        <div class="input-box">
+                            <label>Travelers</label>
+                            <input type="number" min="1" value="1">
+                        </div>
+                        <button class="search-btn"><i class="fas fa-search"></i> Search</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Budget Advisor Section -->
-        <section id="budget-advisor" class="section-p1">
-            <div class="section-header center">
-                <span class="sub-title">Smart Trip Matching</span>
-                <h2>What's Your Trip Budget?</h2>
-                <div class="underline-center"></div>
+        <!-- Budget Planner Section -->
+        <section id="budget-planner" class="section-p1">
+            <div class="section-header">
+                <h2>Smart Budget Planner</h2>
+                <div class="underline"></div>
             </div>
-            <div class="budget-planner glass">
-                <div class="budget-input">
-                    <label>Enter Budget (₹)</label>
-                    <input type="number" id="userBudget" placeholder="e.g. 15000" oninput="suggestDestinations()">
+            <div class="budget-container">
+                <div class="budget-form">
+                    <input type="number" id="userBudget" placeholder="Enter your budget in ₹">
+                    <button class="search-btn" onclick="suggestDestinations()">Ask Advisor</button>
                 </div>
-                <div id="budgetSuggestions" class="suggestions-grid">
-                    <!-- Loaded dynamically via JS -->
-                    <p class="placeholder-text">Enter a budget to see where you can go...</p>
-                </div>
+                <div id="budgetSuggestions" class="suggestions-grid"></div>
             </div>
         </section>
 
-        <!-- VR Portal Section -->
-        <section id="vr-portal">
+        <!-- Mappls RealView 360° Section -->
+        <section id="mappls-realview" class="section-p1">
+            <div class="section-header">
+                <h2>Mappls RealView 360°</h2>
+                <div class="underline"></div>
+            </div>
             <div class="vr-container">
-                <div class="vr-overlay">
-                    <span class="sub-title">Immersive Experience</span>
-                    <h2>AR/VR Virtual Portal</h2>
-                    <p>Experience your destination in 360° before you even pack your bags.</p>
-                    <div class="vr-controls">
-                        <button class="vr-btn" onclick="startVRExperience('Himalayas')">Enter Himalayas VR</button>
-                        <button class="vr-btn secondary" onclick="startVRExperience('Maldives')">Enter Maldives
-                            VR</button>
+                <div id="vr-viewer" class="vr-viewer-bg">
+                    <div class="hud-overlay" id="hudOverlay" style="display: none;">
+                        <div class="hud-top-left">
+                            <div class="compass-box">
+                                <i class="fas fa-compass" id="hudCompass"></i>
+                                <span id="hudDirection">N</span>
+                            </div>
+                        </div>
+                        <div class="hud-bottom-right">
+                            <div class="coords-box">
+                                <p id="hudCoords">--.----° N, --.----° E</p>
+                                <small>REALVIEW HD ACTIVE</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vr-content">
+                        <h3>Immersive Experience</h3>
+                        <p>Explore India's landscapes in high-definition 360°.</p>
+                        <div class="vr-controls">
+                            <button class="vr-btn" onclick="startMapplsRealView('Manali')">Manali 360°</button>
+                            <button class="vr-btn" onclick="startMapplsRealView('Ladakh')">Ladakh 360°</button>
+                            <button class="vr-btn" onclick="startMapplsRealView('Kerala')">Kerala 360°</button>
+                        </div>
                     </div>
                 </div>
-                <div id="vr-viewer" class="vr-viewer-bg"></div>
             </div>
         </section>
 
-        <!-- Trending Destinations -->
         <section id="destinations" class="section-p1">
             <div class="section-header">
-                <span class="sub-title">Elite Detailing</span>
-                <h2>Premium Destinations</h2>
+                <h2>Top Destinations</h2>
                 <div class="underline"></div>
             </div>
             <div class="dest-grid">
@@ -111,8 +119,8 @@
                         alt="Manali">
                     <div class="card-overlay">
                         <h3>Manali, HP</h3>
-                        <p>From ₹8,500</p>
-                        <div class="card-hint">Tap for high-end details</div>
+                        <p>Starting at ₹8,500</p>
+                        <button class="mini-btn">Explore</button>
                     </div>
                 </div>
                 <div class="dest-card" onclick="openDetailModal('Kerala')">
@@ -120,8 +128,8 @@
                         alt="Kerala">
                     <div class="card-overlay">
                         <h3>Alleppey, Kerala</h3>
-                        <p>From ₹12,000</p>
-                        <div class="card-hint">Tap for high-end details</div>
+                        <p>Starting at ₹12,000</p>
+                        <button class="mini-btn">Explore</button>
                     </div>
                 </div>
                 <div class="dest-card" onclick="openDetailModal('Ladakh')">
@@ -129,69 +137,68 @@
                         alt="Ladakh">
                     <div class="card-overlay">
                         <h3>Leh, Ladakh</h3>
-                        <p>From ₹18,500</p>
-                        <div class="card-hint">Tap for high-end details</div>
+                        <p>Starting at ₹18,500</p>
+                        <button class="mini-btn">Explore</button>
                     </div>
                 </div>
                 <div class="dest-card" onclick="openDetailModal('Goa')">
                     <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&q=80&w=600"
                         alt="Goa">
                     <div class="card-overlay">
-                        <h3>Vagator, Goa</h3>
-                        <p>From ₹6,000</p>
-                        <div class="card-hint">Tap for high-end details</div>
+                        <h3>South Goa</h3>
+                        <p>Starting at ₹5,500</p>
+                        <button class="mini-btn">Explore</button>
                     </div>
                 </div>
-                <div class="dest-card" onclick="openDetailModal('Udaipur')">
-                    <img src="https://images.unsplash.com/photo-1590458739938-f1f3e7906d34?auto=format&fit=crop&q=80&w=600"
-                        alt="Udaipur">
-                    <div class="card-overlay">
-                        <h3>Udaipur, RJ</h3>
-                        <p>From ₹10,500</p>
-                        <div class="card-hint">Tap for high-end details</div>
-                    </div>
+            </div>
+        </section>
+
+        <section id="packages" class="section-p1">
+            <div class="section-header">
+                <h2>Curated Packages</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="pack-container">
+                <div class="pack-box">
+                    <div class="pack-tag">Best Seller</div>
+                    <h3>Golden Triangle</h3>
+                    <p>6 Days / 5 Nights: Delhi, Agra & Jaipur.</p>
+                    <div class="price">₹24,999</div>
+                    <button class="book-btn">View Details</button>
                 </div>
-                <div class="dest-card" onclick="openDetailModal('Sikkim')">
-                    <img src="https://images.unsplash.com/photo-1589136142558-946f1cb06778?auto=format&fit=crop&q=80&w=600"
-                        alt="Sikkim">
-                    <div class="card-overlay">
-                        <h3>Gangtok, Sikkim</h3>
-                        <p>From ₹14,000</p>
-                        <div class="card-hint">Tap for high-end details</div>
-                    </div>
+                <div class="pack-box">
+                    <div class="pack-tag">New</div>
+                    <h3>Bali Wellness</h3>
+                    <p>5 Days of Yoga, Meditation & Luxury Spas in Ubud.</p>
+                    <div class="price">₹85,000</div>
+                    <button class="book-btn">View Details</button>
+                </div>
+                <div class="pack-box">
+                    <div class="pack-tag">Popular</div>
+                    <h3>Swiss Alps Trek</h3>
+                    <p>Explore the stunning peaks and valleys of Switzerland.</p>
+                    <div class="price">₹1,45,000</div>
+                    <button class="book-btn">View Details</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Detailed Destination Modal -->
+    <!-- Detail Modal -->
     <div id="detailModal" class="modal">
-        <div class="modal-content large-modal glass">
+        <div class="modal-content glass">
             <span class="close-modal" onclick="closeDetailModal()">&times;</span>
-            <div class="detail-container">
-                <div class="detail-header">
-                    <h2 id="detName">Destination Name</h2>
-                    <span id="detPrice" class="price-pill">₹0</span>
-                </div>
-                <div class="detail-main">
-                    <div class="detail-info">
-                        <h3><i class="fas fa-map-marker-alt"></i> Top Attractions</h3>
-                        <ul id="detAttractions"></ul>
-
-                        <h3><i class="fas fa-clock"></i> Best Time to Visit</h3>
-                        <p id="detTime"></p>
-
-                        <h3><i class="fas fa-utensils"></i> Must-Try Cuisine</h3>
-                        <p id="detCuisine"></p>
-                    </div>
-                    <div class="detail-booking">
-                        <div class="trip-advisor-widget">
-                            <p>Current Safety Rating: ⭐⭐⭐⭐⭐</p>
-                            <button class="prime-btn" onclick="openBookingModal()">Book This Trip</button>
-                        </div>
-                    </div>
-                </div>
+            <h2 id="detName">Destination Name</h2>
+            <p id="detPrice" class="price-text">₹0</p>
+            <div class="detail-info">
+                <h4><i class="fas fa-map-marker-alt"></i> Top Attractions</h4>
+                <ul id="detAttractions"></ul>
+                <h4><i class="fas fa-clock"></i> Best Time to Visit</h4>
+                <p id="detTime"></p>
+                <h4><i class="fas fa-utensils"></i> Local Cuisine</h4>
+                <p id="detCuisine"></p>
             </div>
+            <button class="book-btn" onclick="openBookingModal()">Book Now</button>
         </div>
     </div>
 
@@ -199,20 +206,24 @@
     <div id="bookingModal" class="modal">
         <div class="modal-content glass">
             <span class="close-modal" onclick="closeBookingModal()">&times;</span>
-            <h2>Confirm Your Booking</h2>
-            <div class="modal-body">
-                <div class="booking-summary">
-                    <div class="summary-item">Destination: <strong id="selectedDest">Manali</strong></div>
-                    <div class="summary-item">Total Price: <strong id="totalPrice">₹9,750</strong></div>
-                </div>
-                <button class="confirm-btn" onclick="processBooking()">Complete Payment</button>
-            </div>
+            <h2>Confirm Booking</h2>
+            <div id="bookingSummary" class="booking-summary"></div>
+            <button class="book-btn" onclick="processBooking()">Proceed to Payment</button>
         </div>
     </div>
 
     <footer>
-        <div class="footer-bottom">
-            <p>© 2026 Ghumro Travelogs. High-End AR/VR Expedition Hub.</p>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>Ghumro</span>
+            </div>
+            <p>© 2026 Ghumro Travelogs. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
         </div>
     </footer>
 

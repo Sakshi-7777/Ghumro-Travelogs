@@ -21,8 +21,8 @@
             <ul class="nav-links">
                 <li><a href="#" class="active">Home</a></li>
                 <li><a href="#destinations">Explore</a></li>
-                <li><a href="#packages">Packages</a></li>
-                <li><a href="#travelogs">Travelogs</a></li>
+                <li><a href="#vr-portal">VR Portal</a></li>
+                <li><a href="#budget-advisor">Budget Planner</a></li>
                 <li><a href="index.html" class="logout-btn">Logout</a></li>
             </ul>
         </nav>
@@ -33,32 +33,27 @@
         <section id="hero">
             <div class="hero-content">
                 <h1 class="animate-up">Journey Beyond <span>Limits</span></h1>
-                <p class="animate-up delay-1">Premium experiences, curated destinations, and seamless bookings for the
-                    modern explorer.</p>
+                <p class="animate-up delay-1">Premium experiences, AR/VR previews, and smart budgeting for the elite
+                    explorer.</p>
 
                 <div class="search-container animate-up delay-2">
                     <div class="search-tabs">
-                        <button class="tab-btn active" data-tab="flights"><i class="fas fa-plane"></i> Flights</button>
-                        <button class="tab-btn" data-tab="hotels"><i class="fas fa-hotel"></i> Hotels</button>
-                        <button class="tab-btn" data-tab="tours"><i class="fas fa-map-marked-alt"></i> Tours</button>
+                        <button class="tab-btn active"><i class="fas fa-plane"></i> Flights</button>
+                        <button class="tab-btn"><i class="fas fa-hotel"></i> Hotels</button>
+                        <button class="tab-btn"><i class="fas fa-vr-cardboard"></i> VR Tours</button>
                     </div>
                     <div class="search-bar">
                         <div class="input-box">
                             <label>Destination</label>
-                            <input type="text" placeholder="Search City/Airport">
+                            <input type="text" placeholder="Where to next?">
                         </div>
                         <div class="input-box">
-                            <label>Stay/Travel Type</label>
+                            <label>Travel Type</label>
                             <select>
                                 <option>Solo Wanderer</option>
                                 <option>Leisure Family</option>
-                                <option>Luxury Honeymoon</option>
                                 <option>Adventure Trek</option>
                             </select>
-                        </div>
-                        <div class="input-box">
-                            <label>Check-in</label>
-                            <input type="date">
                         </div>
                         <button class="search-btn" onclick="openBookingModal()"><i class="fas fa-search"></i> Check
                             Availability</button>
@@ -67,184 +62,157 @@
             </div>
         </section>
 
-        <!-- Stats Section -->
-        <section id="stats" class="section-p1">
-            <div class="stat-box">
-                <h3>500+</h3>
-                <p>Destinations</p>
+        <!-- Budget Advisor Section -->
+        <section id="budget-advisor" class="section-p1">
+            <div class="section-header center">
+                <span class="sub-title">Smart Trip Matching</span>
+                <h2>What's Your Trip Budget?</h2>
+                <div class="underline-center"></div>
             </div>
-            <div class="stat-box">
-                <h3>12k+</h3>
-                <p>Happy Travelers</p>
-            </div>
-            <div class="stat-box">
-                <h3>4.9/5</h3>
-                <p>User Rating</p>
-            </div>
-            <div class="stat-box">
-                <h3>24/7</h3>
-                <p>VIP Support</p>
+            <div class="budget-planner glass">
+                <div class="budget-input">
+                    <label>Enter Budget (₹)</label>
+                    <input type="number" id="userBudget" placeholder="e.g. 15000" oninput="suggestDestinations()">
+                </div>
+                <div id="budgetSuggestions" class="suggestions-grid">
+                    <!-- Loaded dynamically via JS -->
+                    <p class="placeholder-text">Enter a budget to see where you can go...</p>
+                </div>
             </div>
         </section>
 
-        <!-- Top Destinations -->
+        <!-- VR Portal Section -->
+        <section id="vr-portal">
+            <div class="vr-container">
+                <div class="vr-overlay">
+                    <span class="sub-title">Immersive Experience</span>
+                    <h2>AR/VR Virtual Portal</h2>
+                    <p>Experience your destination in 360° before you even pack your bags.</p>
+                    <div class="vr-controls">
+                        <button class="vr-btn" onclick="startVRExperience('Himalayas')">Enter Himalayas VR</button>
+                        <button class="vr-btn secondary" onclick="startVRExperience('Maldives')">Enter Maldives
+                            VR</button>
+                    </div>
+                </div>
+                <div id="vr-viewer" class="vr-viewer-bg"></div>
+            </div>
+        </section>
+
+        <!-- Trending Destinations -->
         <section id="destinations" class="section-p1">
             <div class="section-header">
-                <span class="sub-title">Popular Choices</span>
-                <h2>Trending Destinations</h2>
+                <span class="sub-title">Elite Detailing</span>
+                <h2>Premium Destinations</h2>
                 <div class="underline"></div>
             </div>
             <div class="dest-grid">
-                <div class="dest-card" onclick="openBookingModal('Manali')">
+                <div class="dest-card" onclick="openDetailModal('Manali')">
                     <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&q=80&w=600"
                         alt="Manali">
                     <div class="card-overlay">
-                        <h3>Manali, India</h3>
-                        <p>Starting at ₹8,500</p>
-                        <div class="rating"><i class="fas fa-star"></i> 4.8</div>
+                        <h3>Manali, HP</h3>
+                        <p>From ₹8,500</p>
+                        <div class="card-hint">Tap for high-end details</div>
                     </div>
                 </div>
-                <div class="dest-card" onclick="openBookingModal('Kerala')">
+                <div class="dest-card" onclick="openDetailModal('Kerala')">
                     <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&q=80&w=600"
                         alt="Kerala">
                     <div class="card-overlay">
-                        <h3>Kerala Backwaters</h3>
-                        <p>Starting at ₹12,000</p>
-                        <div class="rating"><i class="fas fa-star"></i> 4.9</div>
+                        <h3>Alleppey, Kerala</h3>
+                        <p>From ₹12,000</p>
+                        <div class="card-hint">Tap for high-end details</div>
                     </div>
                 </div>
-                <div class="dest-card" onclick="openBookingModal('Ladakh')">
+                <div class="dest-card" onclick="openDetailModal('Ladakh')">
                     <img src="https://images.unsplash.com/photo-1549130031-653927772886?auto=format&fit=crop&q=80&w=600"
                         alt="Ladakh">
                     <div class="card-overlay">
-                        <h3>Leh-Ladakh</h3>
-                        <p>Starting at ₹15,500</p>
-                        <div class="rating"><i class="fas fa-star"></i> 4.7</div>
+                        <h3>Leh, Ladakh</h3>
+                        <p>From ₹18,500</p>
+                        <div class="card-hint">Tap for high-end details</div>
                     </div>
                 </div>
-                <div class="dest-card" onclick="openBookingModal('Goa')">
+                <div class="dest-card" onclick="openDetailModal('Goa')">
                     <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&q=80&w=600"
                         alt="Goa">
                     <div class="card-overlay">
-                        <h3>South Goa</h3>
-                        <p>Starting at ₹5,000</p>
-                        <div class="rating"><i class="fas fa-star"></i> 4.5</div>
+                        <h3>Vagator, Goa</h3>
+                        <p>From ₹6,000</p>
+                        <div class="card-hint">Tap for high-end details</div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Travelogs / Blog Section -->
-        <section id="travelogs" class="section-p1">
-            <div class="section-header">
-                <span class="sub-title">The Explorer's Feed</span>
-                <h2>Recent Travelogs</h2>
-                <div class="underline"></div>
-            </div>
-            <div class="blog-grid">
-                <div class="blog-card">
-                    <div class="blog-img">
-                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=600"
-                            alt="Blog 1">
-                    </div>
-                    <div class="blog-content">
-                        <span class="tag">Solo Trip</span>
-                        <h4>Chasing Sunsets in Udaipur</h4>
-                        <p>My 3-day journey through the City of Lakes and its hidden palaces...</p>
-                        <a href="#">Read Travelog <i class="fas fa-arrow-right"></i></a>
+                <div class="dest-card" onclick="openDetailModal('Udaipur')">
+                    <img src="https://images.unsplash.com/photo-1590458739938-f1f3e7906d34?auto=format&fit=crop&q=80&w=600"
+                        alt="Udaipur">
+                    <div class="card-overlay">
+                        <h3>Udaipur, RJ</h3>
+                        <p>From ₹10,500</p>
+                        <div class="card-hint">Tap for high-end details</div>
                     </div>
                 </div>
-                <div class="blog-card">
-                    <div class="blog-img">
-                        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=600"
-                            alt="Blog 2">
+                <div class="dest-card" onclick="openDetailModal('Sikkim')">
+                    <img src="https://images.unsplash.com/photo-1589136142558-946f1cb06778?auto=format&fit=crop&q=80&w=600"
+                        alt="Sikkim">
+                    <div class="card-overlay">
+                        <h3>Gangtok, Sikkim</h3>
+                        <p>From ₹14,000</p>
+                        <div class="card-hint">Tap for high-end details</div>
                     </div>
-                    <div class="blog-content">
-                        <span class="tag">Foodie</span>
-                        <h4>The Best Street Food in Old Delhi</h4>
-                        <p>Exploring the narrow lanes of Chandni Chowk for the ultimate paratha experience...</p>
-                        <a href="#">Read Travelog <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Newsletter -->
-        <section id="newsletter">
-            <div class="news-content">
-                <h2>Join the Ghumro Elite</h2>
-                <p>Get exclusive early access to secret deals and limited-edition travelogs.</p>
-                <div class="news-form">
-                    <input type="email" placeholder="Enter your email">
-                    <button class="join-btn">Subscribe</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Booking Modal (Full-Stack Feel) -->
+    <!-- Detailed Destination Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content large-modal glass">
+            <span class="close-modal" onclick="closeDetailModal()">&times;</span>
+            <div class="detail-container">
+                <div class="detail-header">
+                    <h2 id="detName">Destination Name</h2>
+                    <span id="detPrice" class="price-pill">₹0</span>
+                </div>
+                <div class="detail-main">
+                    <div class="detail-info">
+                        <h3><i class="fas fa-map-marker-alt"></i> Top Attractions</h3>
+                        <ul id="detAttractions"></ul>
+
+                        <h3><i class="fas fa-clock"></i> Best Time to Visit</h3>
+                        <p id="detTime"></p>
+
+                        <h3><i class="fas fa-utensils"></i> Must-Try Cuisine</h3>
+                        <p id="detCuisine"></p>
+                    </div>
+                    <div class="detail-booking">
+                        <div class="trip-advisor-widget">
+                            <p>Current Safety Rating: ⭐⭐⭐⭐⭐</p>
+                            <button class="prime-btn" onclick="openBookingModal()">Book This Trip</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
     <div id="bookingModal" class="modal">
         <div class="modal-content glass">
             <span class="close-modal" onclick="closeBookingModal()">&times;</span>
-            <h2 id="modalTitle">Confirm Your Booking</h2>
+            <h2>Confirm Your Booking</h2>
             <div class="modal-body">
                 <div class="booking-summary">
-                    <div class="summary-item">
-                        <span>Destination:</span>
-                        <strong id="selectedDest">Manali, India</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Price per Person:</span>
-                        <strong id="priceTag">₹8,500</strong>
-                    </div>
-                    <div class="summary-item">
-                        <span>Tax & Fees:</span>
-                        <strong>₹1,250</strong>
-                    </div>
-                    <hr>
-                    <div class="summary-item total">
-                        <span>Total:</span>
-                        <strong id="totalPrice">₹9,750</strong>
-                    </div>
+                    <div class="summary-item">Destination: <strong id="selectedDest">Manali</strong></div>
+                    <div class="summary-item">Total Price: <strong id="totalPrice">₹9,750</strong></div>
                 </div>
-                <button class="confirm-btn" onclick="processBooking()">Proceed to Payment</button>
+                <button class="confirm-btn" onclick="processBooking()">Complete Payment</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <div class="footer-grid">
-            <div class="footer-info">
-                <div class="logo">
-                    <i class="fas fa-paper-plane"></i>
-                    <span>Ghumro</span>
-                </div>
-                <p>Redefining travel for the modern Indian explorer. High-end, curated, and soulful.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Partner with us</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">Safety Details</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-        </div>
         <div class="footer-bottom">
-            <p>© 2026 Ghumro Travelogs. Made with ❤️ for Explorers.</p>
-            <div class="socials">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-            </div>
+            <p>© 2026 Ghumro Travelogs. High-End AR/VR Expedition Hub.</p>
         </div>
     </footer>
 

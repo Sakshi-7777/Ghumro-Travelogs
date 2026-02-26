@@ -1,33 +1,35 @@
-// --- DESTINATION METADATA ---
-const destData = {
-    'Manali': {
-        price: 8500,
+'Manali': {
+    price: 8500,
         attractions: ['Rohtang Pass', 'Solang Valley', 'Hadimba Temple', 'Old Manali'],
-        time: 'Oct to June',
-        cuisine: 'Siddu, Thukpa',
-        coords: '32.2432° N, 77.1892° E'
-    },
-    'Kerala': {
-        price: 12000,
+            time: 'Oct to June',
+                cuisine: 'Siddu, Thukpa',
+                    coords: '32.2432° N, 77.1892° E',
+                        img: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=400'
+},
+'Kerala': {
+    price: 12000,
         attractions: ['Alleppey Houseboats', 'Munnar Tea Gardens', 'Varkala Beach'],
-        time: 'Sept to March',
-        cuisine: 'Appam, Karimeen',
-        coords: '9.4981° N, 76.3388° E'
-    },
-    'Ladakh': {
-        price: 18500,
+            time: 'Sept to March',
+                cuisine: 'Appam, Karimeen',
+                    coords: '9.4981° N, 76.3388° E',
+                        img: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=400'
+},
+'Ladakh': {
+    price: 18500,
         attractions: ['Pangong Lake', 'Nubra Valley', 'Shanti Stupa'],
-        time: 'May to Sept',
-        cuisine: 'Momos, Skyu',
-        coords: '34.1526° N, 77.5771° E'
-    },
-    'Goa': {
-        price: 5500,
+            time: 'May to Sept',
+                cuisine: 'Momos, Skyu',
+                    coords: '34.1526° N, 77.5771° E',
+                        img: 'https://images.unsplash.com/photo-1549130031-653927772886?auto=format&fit=crop&w=400'
+},
+'Goa': {
+    price: 5500,
         attractions: ['Vagator Beach', 'Basilica of Bom Jesus', 'Anjuna Market'],
-        time: 'Nov to Feb',
-        cuisine: 'Fish Recheado, Bebinca',
-        coords: '15.2993° N, 74.1240° E'
-    }
+            time: 'Nov to Feb',
+                cuisine: 'Fish Recheado, Bebinca',
+                    coords: '15.2993° N, 74.1240° E',
+                        img: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=400'
+}
 };
 
 // --- AUTH LOGIC ---
@@ -69,18 +71,32 @@ if (showLogin) {
 function suggestDestinations() {
     const budget = parseInt(document.getElementById('userBudget').value);
     const container = document.getElementById('budgetSuggestions');
-    if (!budget) return;
+    if (!budget) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-wallet"></i>
+                <p>Your next journey starts with a single number...</p>
+            </div>`;
+        return;
+    }
 
     const matches = Object.keys(destData).filter(key => destData[key].price <= budget);
     if (matches.length === 0) {
-        container.innerHTML = '<p>No matches found for this budget.</p>';
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-sad-tear"></i>
+                <p>No matches yet. Try a higher budget for impactful adventures!</p>
+            </div>`;
         return;
     }
 
     container.innerHTML = matches.map(name => `
-        <div class="suggest-card" onclick="openDetailModal('${name}')">
-            <h4>${name}</h4>
-            <p>From ₹${destData[name].price.toLocaleString()}</p>
+        <div class="impact-card" onclick="openDetailModal('${name}')">
+            <img src="${destData[name].img}" class="impact-img">
+            <div class="impact-info">
+                <h4>${name}</h4>
+                <p>₹${destData[name].price.toLocaleString()}</p>
+            </div>
         </div>
     `).join('');
 }

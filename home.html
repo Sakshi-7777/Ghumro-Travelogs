@@ -58,18 +58,32 @@
             </div>
         </section>
 
-        <!-- Budget Planner Section -->
+        <!-- Premium Budget Planner Section -->
         <section id="budget-planner" class="section-p1">
             <div class="section-header">
-                <h2>Smart Budget Planner</h2>
+                <span class="sub-title">Financial Intelligence</span>
+                <h2>Smart Budget Advisor</h2>
+                <p class="section-desc">Enter your budget and let our AI suggest the most impactful experiences within
+                    your range.</p>
                 <div class="underline"></div>
             </div>
-            <div class="budget-container">
-                <div class="budget-form">
-                    <input type="number" id="userBudget" placeholder="Enter your budget in ₹">
-                    <button class="search-btn" onclick="suggestDestinations()">Ask Advisor</button>
+
+            <div class="budget-card-container fade-in">
+                <div class="budget-input-wrapper">
+                    <div class="currency-symbol">₹</div>
+                    <input type="number" id="userBudget" placeholder="Enter Amount" oninput="suggestDestinations()">
+                    <button class="advisor-btn" onclick="suggestDestinations()">
+                        <span>Ask Advisor</span>
+                        <i class="fas fa-magic"></i>
+                    </button>
                 </div>
-                <div id="budgetSuggestions" class="suggestions-grid"></div>
+
+                <div id="budgetSuggestions" class="impact-grid">
+                    <div class="empty-state">
+                        <i class="fas fa-wallet"></i>
+                        <p>Your next journey starts with a single number...</p>
+                    </div>
+                </div>
             </div>
         </section>
 

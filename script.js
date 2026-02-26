@@ -16,25 +16,43 @@ const destData = {
         price: 18500,
         attractions: ['Pangong Lake', 'Nubra Valley', 'Shanti Stupa', 'Magnetic Hill'],
         time: 'May to September',
-        cuisine: 'Momos, Skyu, and Butter Tea'
+        cuisine: 'Momos, Skyu, and Butter Tea',
+        coords: '34.1526° N, 77.5771° E'
     },
     'Goa': {
         price: 5500,
         attractions: ['Vagator Beach', 'Basilica of Bom Jesus', 'Dudhsagar Falls', 'Anjuna Flea Market'],
         time: 'November to February',
-        cuisine: 'Fish Recheado, Bebinca, and Prawn Balchão'
+        cuisine: 'Fish Recheado, Bebinca, and Prawn Balchão',
+        coords: '15.2993° N, 74.1240° E'
     },
     'Udaipur': {
         price: 10500,
         attractions: ['City Palace', 'Lake Pichola', 'Jagdish Temple', 'Fateh Sagar Lake'],
         time: 'September to March',
-        cuisine: 'Laal Maas, Dal Bati Churma, and Ker Sangri'
+        cuisine: 'Laal Maas, Dal Bati Churma, and Ker Sangri',
+        coords: '24.5854° N, 73.7125° E'
     },
     'Sikkim': {
         price: 14000,
         attractions: ['Tsomgo Lake', 'Nathula Pass', 'Rumtek Monastery', 'Gurudongmar Lake'],
         time: 'March to May / October to December',
-        cuisine: 'Phagshapa, Gundruk, and Sael Roti'
+        cuisine: 'Phagshapa, Gundruk, and Sael Roti',
+        coords: '27.3314° N, 88.6138° E'
+    },
+    'Manali': {
+        price: 8500,
+        attractions: ['Rohtang Pass', 'Solang Valley', 'Hadimba Temple', 'Old Manali Cafes'],
+        time: 'October to June (Best for Snow: Dec-Feb)',
+        cuisine: 'Siddu, Thukpa, and Trout Fish',
+        coords: '32.2432° N, 77.1892° E'
+    },
+    'Kerala': {
+        price: 12000,
+        attractions: ['Alleppey Houseboats', 'Munnar Tea Gardens', 'Varkala Beach', 'Thekkady Wildlife'],
+        time: 'September to March',
+        cuisine: 'Appam with Stew, Karimeen Pollichathu, and Puttu',
+        coords: '9.4981° N, 76.3388° E'
     }
 };
 

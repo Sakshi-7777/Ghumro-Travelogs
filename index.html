@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animated Login Page</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="login-container">
         <div class="login-box">
             <div class="avatar">
-                <img src="https://st2.depositphotos.com/3837271/5507/i/450/depositphotos_55072853-stock-photo-time-to-travel-wooden-sign.jpg" alt="Avatar">
+                <img src="https://st2.depositphotos.com/3837271/5507/i/450/depositphotos_55072853-stock-photo-time-to-travel-wooden-sign.jpg"
+                    alt="Avatar">
             </div>
             <form id="loginForm" class="login-form">
                 <h2>Start your journey!</h2>
@@ -28,9 +31,35 @@
                     <span>Login</span>
                     <div class="slide-arrow"></div>
                 </button>
+                <p class="toggle-text">Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+            </form>
+
+            <form id="registerForm" class="login-form" style="display: none;">
+                <h2>Join the adventure!</h2>
+                <div class="input-group">
+                    <input type="text" id="regUsername" required>
+                    <label for="regUsername">Username</label>
+                    <div class="arrow"></div>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="regEmail" required>
+                    <label for="regEmail">Email</label>
+                    <div class="arrow"></div>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="regPassword" required>
+                    <label for="regPassword">Password</label>
+                    <div class="arrow"></div>
+                </div>
+                <button type="submit">
+                    <span>Register</span>
+                    <div class="slide-arrow"></div>
+                </button>
+                <p class="toggle-text">Already have an account? <a href="#" id="showLogin">Login here</a></p>
             </form>
         </div>
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

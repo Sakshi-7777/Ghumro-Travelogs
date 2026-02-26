@@ -11,143 +11,244 @@
 </head>
 
 <body>
+    <!-- Navbar -->
     <header>
         <nav class="glass-nav">
             <div class="logo">
-                <i class="fas fa-globe-americas"></i>
+                <i class="fas fa-paper-plane"></i>
                 <span>Ghumro</span>
             </div>
             <ul class="nav-links">
                 <li><a href="#" class="active">Home</a></li>
-                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#destinations">Explore</a></li>
                 <li><a href="#packages">Packages</a></li>
-                <li><a href="#booking">Booking</a></li>
+                <li><a href="#travelogs">Travelogs</a></li>
                 <li><a href="index.html" class="logout-btn">Logout</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
+        <!-- Hero Section -->
         <section id="hero">
             <div class="hero-content">
-                <h1 class="animate-up">Discover Your Next <span>Adventure</span></h1>
-                <p class="animate-up delay-1">Explore stunning destinations, book luxury stays, and create unforgettable
-                    memories with Ghumro Travelogs.</p>
+                <h1 class="animate-up">Journey Beyond <span>Limits</span></h1>
+                <p class="animate-up delay-1">Premium experiences, curated destinations, and seamless bookings for the
+                    modern explorer.</p>
 
                 <div class="search-container animate-up delay-2">
                     <div class="search-tabs">
                         <button class="tab-btn active" data-tab="flights"><i class="fas fa-plane"></i> Flights</button>
                         <button class="tab-btn" data-tab="hotels"><i class="fas fa-hotel"></i> Hotels</button>
+                        <button class="tab-btn" data-tab="tours"><i class="fas fa-map-marked-alt"></i> Tours</button>
                     </div>
                     <div class="search-bar">
                         <div class="input-box">
-                            <label>Location</label>
-                            <input type="text" placeholder="Where are you going?">
+                            <label>Destination</label>
+                            <input type="text" placeholder="Search City/Airport">
                         </div>
                         <div class="input-box">
-                            <label>Date</label>
+                            <label>Stay/Travel Type</label>
+                            <select>
+                                <option>Solo Wanderer</option>
+                                <option>Leisure Family</option>
+                                <option>Luxury Honeymoon</option>
+                                <option>Adventure Trek</option>
+                            </select>
+                        </div>
+                        <div class="input-box">
+                            <label>Check-in</label>
                             <input type="date">
                         </div>
-                        <div class="input-box">
-                            <label>Travelers</label>
-                            <input type="number" min="1" value="1">
-                        </div>
-                        <button class="search-btn"><i class="fas fa-search"></i> Search</button>
+                        <button class="search-btn" onclick="openBookingModal()"><i class="fas fa-search"></i> Check
+                            Availability</button>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Stats Section -->
+        <section id="stats" class="section-p1">
+            <div class="stat-box">
+                <h3>500+</h3>
+                <p>Destinations</p>
+            </div>
+            <div class="stat-box">
+                <h3>12k+</h3>
+                <p>Happy Travelers</p>
+            </div>
+            <div class="stat-box">
+                <h3>4.9/5</h3>
+                <p>User Rating</p>
+            </div>
+            <div class="stat-box">
+                <h3>24/7</h3>
+                <p>VIP Support</p>
+            </div>
+        </section>
+
+        <!-- Top Destinations -->
         <section id="destinations" class="section-p1">
             <div class="section-header">
-                <h2>Top Destinations</h2>
+                <span class="sub-title">Popular Choices</span>
+                <h2>Trending Destinations</h2>
                 <div class="underline"></div>
             </div>
             <div class="dest-grid">
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1506929113675-b929da606dc8?auto=format&fit=crop&q=80&w=600"
-                        alt="Maldives">
+                <div class="dest-card" onclick="openBookingModal('Manali')">
+                    <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&q=80&w=600"
+                        alt="Manali">
                     <div class="card-overlay">
-                        <h3>Maldives</h3>
-                        <p>Starting at $1,200</p>
-                        <button class="mini-btn">Explore</button>
+                        <h3>Manali, India</h3>
+                        <p>Starting at ₹8,500</p>
+                        <div class="rating"><i class="fas fa-star"></i> 4.8</div>
                     </div>
                 </div>
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=600"
-                        alt="Kyoto">
+                <div class="dest-card" onclick="openBookingModal('Kerala')">
+                    <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&q=80&w=600"
+                        alt="Kerala">
                     <div class="card-overlay">
-                        <h3>Kyoto, Japan</h3>
-                        <p>Starting at $850</p>
-                        <button class="mini-btn">Explore</button>
+                        <h3>Kerala Backwaters</h3>
+                        <p>Starting at ₹12,000</p>
+                        <div class="rating"><i class="fas fa-star"></i> 4.9</div>
                     </div>
                 </div>
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&q=80&w=600"
-                        alt="Venice">
+                <div class="dest-card" onclick="openBookingModal('Ladakh')">
+                    <img src="https://images.unsplash.com/photo-1549130031-653927772886?auto=format&fit=crop&q=80&w=600"
+                        alt="Ladakh">
                     <div class="card-overlay">
-                        <h3>Venice, Italy</h3>
-                        <p>Starting at $950</p>
-                        <button class="mini-btn">Explore</button>
+                        <h3>Leh-Ladakh</h3>
+                        <p>Starting at ₹15,500</p>
+                        <div class="rating"><i class="fas fa-star"></i> 4.7</div>
                     </div>
                 </div>
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&q=80&w=600"
-                        alt="Taj Mahal">
+                <div class="dest-card" onclick="openBookingModal('Goa')">
+                    <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&q=80&w=600"
+                        alt="Goa">
                     <div class="card-overlay">
-                        <h3>Agra, India</h3>
-                        <p>Starting at $400</p>
-                        <button class="mini-btn">Explore</button>
+                        <h3>South Goa</h3>
+                        <p>Starting at ₹5,000</p>
+                        <div class="rating"><i class="fas fa-star"></i> 4.5</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="packages" class="section-p1">
+        <!-- Travelogs / Blog Section -->
+        <section id="travelogs" class="section-p1">
             <div class="section-header">
-                <h2>Curated Packages</h2>
+                <span class="sub-title">The Explorer's Feed</span>
+                <h2>Recent Travelogs</h2>
                 <div class="underline"></div>
             </div>
-            <div class="pack-container">
-                <div class="pack-box">
-                    <div class="pack-tag">Best Seller</div>
-                    <h3>European Escape</h3>
-                    <p>7 Days / 6 Nights through Paris, Rome & Amsterdam.</p>
-                    <div class="price">$2,499</div>
-                    <button class="book-btn">View Details</button>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=600"
+                            alt="Blog 1">
+                    </div>
+                    <div class="blog-content">
+                        <span class="tag">Solo Trip</span>
+                        <h4>Chasing Sunsets in Udaipur</h4>
+                        <p>My 3-day journey through the City of Lakes and its hidden palaces...</p>
+                        <a href="#">Read Travelog <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
-                <div class="pack-box">
-                    <div class="pack-tag">New</div>
-                    <h3>Bali Wellness</h3>
-                    <p>5 Days of Yoga, Meditation & Luxury Spas in Ubud.</p>
-                    <div class="price">$1,150</div>
-                    <button class="book-btn">View Details</button>
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=600"
+                            alt="Blog 2">
+                    </div>
+                    <div class="blog-content">
+                        <span class="tag">Foodie</span>
+                        <h4>The Best Street Food in Old Delhi</h4>
+                        <p>Exploring the narrow lanes of Chandni Chowk for the ultimate paratha experience...</p>
+                        <a href="#">Read Travelog <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
-                <div class="pack-box">
-                    <div class="pack-tag">Popular</div>
-                    <h3>Swiss Alps Trek</h3>
-                    <p>Explore the stunning peaks and valleys of Switzerland.</p>
-                    <div class="price">$1,800</div>
-                    <button class="book-btn">View Details</button>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section id="newsletter">
+            <div class="news-content">
+                <h2>Join the Ghumro Elite</h2>
+                <p>Get exclusive early access to secret deals and limited-edition travelogs.</p>
+                <div class="news-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button class="join-btn">Subscribe</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <i class="fas fa-globe-americas"></i>
-                <span>Ghumro</span>
+    <!-- Booking Modal (Full-Stack Feel) -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-modal" onclick="closeBookingModal()">&times;</span>
+            <h2 id="modalTitle">Confirm Your Booking</h2>
+            <div class="modal-body">
+                <div class="booking-summary">
+                    <div class="summary-item">
+                        <span>Destination:</span>
+                        <strong id="selectedDest">Manali, India</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Price per Person:</span>
+                        <strong id="priceTag">₹8,500</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Tax & Fees:</span>
+                        <strong>₹1,250</strong>
+                    </div>
+                    <hr>
+                    <div class="summary-item total">
+                        <span>Total:</span>
+                        <strong id="totalPrice">₹9,750</strong>
+                    </div>
+                </div>
+                <button class="confirm-btn" onclick="processBooking()">Proceed to Payment</button>
             </div>
-            <p>© 2026 Ghumro Travelogs. All Rights Reserved.</p>
-            <div class="social-links">
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-info">
+                <div class="logo">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Ghumro</span>
+                </div>
+                <p>Redefining travel for the modern Indian explorer. High-end, curated, and soulful.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Partner with us</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Safety Details</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Ghumro Travelogs. Made with ❤️ for Explorers.</p>
+            <div class="socials">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
             </div>
         </div>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 
 </html>

@@ -4,58 +4,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated Login Page</title>
+    <title>Ghumro | Premium Travel Hub</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
     <div class="login-container">
-        <div class="login-box">
-            <div class="avatar">
-                <img src="https://st2.depositphotos.com/3837271/5507/i/450/depositphotos_55072853-stock-photo-time-to-travel-wooden-sign.jpg"
-                    alt="Avatar">
+        <div class="login-box glass">
+            <div class="logo-box">
+                <i class="fas fa-paper-plane"></i>
+                <h1>Ghumro</h1>
             </div>
+
             <form id="loginForm" class="login-form">
-                <h2>Start your journey!</h2>
+                <h2>Welcome Back!</h2>
                 <div class="input-group">
                     <input type="text" id="username" required>
                     <label for="username">Username</label>
-                    <div class="arrow"></div>
+                    <div class="glow-line"></div>
                 </div>
                 <div class="input-group">
                     <input type="password" id="password" required>
                     <label for="password">Password</label>
-                    <div class="arrow"></div>
+                    <div class="glow-line"></div>
                 </div>
-                <button type="submit">
+                <button type="submit" class="prime-btn">
                     <span>Login</span>
-                    <div class="slide-arrow"></div>
+                    <i class="fas fa-arrow-right"></i>
                 </button>
-                <p class="toggle-text">Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+                <p class="toggle-text">New to the world? <a href="#" id="showRegister">Join Now</a></p>
             </form>
 
             <form id="registerForm" class="login-form" style="display: none;">
-                <h2>Join the adventure!</h2>
+                <h2>Start Your Journey</h2>
                 <div class="input-group">
                     <input type="text" id="regUsername" required>
-                    <label for="regUsername">Username</label>
-                    <div class="arrow"></div>
+                    <label for="regUsername">Full Name</label>
+                    <div class="glow-line"></div>
                 </div>
                 <div class="input-group">
                     <input type="email" id="regEmail" required>
-                    <label for="regEmail">Email</label>
-                    <div class="arrow"></div>
+                    <label for="regEmail">Email Address</label>
+                    <div class="glow-line"></div>
                 </div>
                 <div class="input-group">
                     <input type="password" id="regPassword" required>
-                    <label for="regPassword">Password</label>
-                    <div class="arrow"></div>
+                    <label for="regPassword">Create Password</label>
+                    <div class="glow-line"></div>
                 </div>
-                <button type="submit">
-                    <span>Register</span>
-                    <div class="slide-arrow"></div>
+                <button type="submit" class="prime-btn">
+                    <span>Create Account</span>
+                    <i class="fas fa-check"></i>
                 </button>
-                <p class="toggle-text">Already have an account? <a href="#" id="showLogin">Login here</a></p>
+                <p class="toggle-text">Already an explorer? <a href="#" id="showLogin">Sign In</a></p>
             </form>
         </div>
     </div>

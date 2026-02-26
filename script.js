@@ -1,4 +1,4 @@
-// --- THE ELITE DATABASE ---
+// --- BHARAT PLATINUM DATABASE ---
 const db = {
     'Manali': {
         price: 8500,
@@ -52,27 +52,47 @@ const firebaseConfig = {
     appId: "1:123456789:web:abcdef123456"
 };
 
-// Start Firebase if explicitly needed (Mocked for initial Level)
 let db_fs = null;
 try {
     firebase.initializeApp(firebaseConfig);
     db_fs = firebase.firestore();
 } catch (e) {
-    console.warn("Firebase initialized with placeholders. Live sync disabled.");
+    console.warn("Firebase initialized with placeholders.");
 }
 
 // --- PLATINUM ENGINE ---
 let activeTarget = 'Manali';
 let totalAmount = 0;
 
-// Reveal On Scroll
-const observer = new IntersectionObserver((entries) => {
+// Dynamic Reveal System
+const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            // Staggered reveal for children if data-stagger exists
+            const staggers = entry.target.querySelectorAll('[data-stagger]');
+            staggers.forEach((el, i) => {
+                setTimeout(() => el.classList.add('active'), i * 150);
+            });
+        }
     });
-}, { threshold: 0.1 });
+}, { threshold: 0.15 });
 
-document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+
+// Navigation Active State Sync
+window.addEventListener('scroll', () => {
+    let current = "";
+    document.querySelectorAll('section').forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 150) current = section.getAttribute('id');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === `#${current}`) a.classList.add('active');
+    });
+});
 
 // Budget Advisor (Live Search)
 function liveSuggest() {
@@ -89,8 +109,8 @@ function liveSuggest() {
         return;
     }
 
-    output.innerHTML = matches.map(name => `
-        <div class="impact-card" onclick="openEliteDetail('${name}')">
+    output.innerHTML = matches.map((name, i) => `
+        <div class="impact-card" data-stagger="${i + 1}" onclick="openEliteDetail('${name}')">
             <img src="${db[name].img}">
             <div class="impact-body">
                 <h4>${name}</h4>
@@ -108,7 +128,7 @@ function runRealView(loc) {
     const overlay = document.querySelector('.vr-overlay-content');
     const coords = document.getElementById('hudCoords');
 
-    overlay.innerHTML = `<h3>Syncing ${loc} Link...</h3><p>Spatial Alignment in Progress</p>`;
+    overlay.innerHTML = `<h3>Linking ${loc} RealView...</h3><p>Spatial Alignment in Progress</p>`;
 
     setTimeout(() => {
         viewer.style.backgroundImage = `url('${db[loc].img.replace('w=400', 'w=1920')}')`;
@@ -116,16 +136,17 @@ function runRealView(loc) {
         coords.innerText = db[loc].coords;
 
         let deg = 0;
-        setInterval(() => {
+        const rotateCompass = setInterval(() => {
             deg += 1;
             const compass = document.getElementById('hudCompass');
             if (compass) compass.style.transform = `rotate(${deg}deg)`;
+            else clearInterval(rotateCompass);
         }, 60);
 
         overlay.innerHTML = `
             <h3>${loc} Synced</h3>
             <p>RealView Established at ${db[loc].coords}</p>
-            <button class="btn-premium" onclick="location.reload()">Reset Link</button>
+            <button class="btn-premium" onclick="location.reload()">Reset Portal</button>
         `;
     }, 1500);
 }
@@ -159,7 +180,7 @@ function openEliteDetail(name) {
 
     content.innerHTML = `
         <div class="detail-head">
-            <h2>${name} Explorer</h2>
+            <h2>${name} Expedition</h2>
             <p class="price-big">₹${data.price.toLocaleString()}</p>
         </div>
         <div class="meta-block">
@@ -169,74 +190,56 @@ function openEliteDetail(name) {
         <div class="meta-block">
             <h4><i class="fas fa-tshirt"></i> Destination Outfit</h4>
             <p><strong>Vibe:</strong> ${data.outfit.vibe}</p>
-            <p style="color:#64748b;">Includes: ${data.outfit.items.join(', ')}</p>
+            <p>Includes: ${data.outfit.items.join(', ')}</p>
         </div>
         <div class="meta-block">
             <h4><i class="fas fa-map-marker-alt"></i> Top Attractions</h4>
             <ul>${data.attractions.map(a => `<li>${a}</li>`).join('')}</ul>
         </div>
-        <button class="btn-premium" style="width:100%;" onclick="openPaymentGateway()">Secure Reservation</button>
+        <button class="btn-premium" style="width:100%;" onclick="openPaymentGateway()">Reserve Platinum Pass</button>
     `;
     modal.style.display = 'block';
 }
 
 function closeEliteModal() { document.getElementById('eliteModal').style.display = 'none'; }
 
-// --- PAYMENT & FIREBASE SYNC ---
+// PAYMENT WORKFLOW
 function openPaymentGateway() {
-    const data = db[activeTarget];
-    totalAmount = data.price + 2450; // Tax
+    totalAmount = db[activeTarget].price + 2450;
     document.getElementById('finalPaymentAmount').innerText = `Total Amount: ₹${totalAmount.toLocaleString()}`;
     document.getElementById('paymentModal').style.display = 'block';
     closeEliteModal();
 }
 
-function closePaymentModal() {
-    document.getElementById('paymentModal').style.display = 'none';
-}
+function closePaymentModal() { document.getElementById('paymentModal').style.display = 'none'; }
 
 function updateCardPreview() {
-    const name = document.getElementById('cardName').value || "PLATINUM MEMBER";
-    const num = document.getElementById('cardNum').value || "**** **** **** ****";
-    const expiry = document.getElementById('cardExpiry').value || "MM/YY";
-
-    document.getElementById('previewName').innerText = name.toUpperCase();
-    document.getElementById('previewCardNum').innerText = num;
-    document.getElementById('previewExpiry').innerText = expiry;
+    document.getElementById('previewName').innerText = (document.getElementById('cardName').value || "PLATINUM MEMBER").toUpperCase();
+    document.getElementById('previewCardNum').innerText = document.getElementById('cardNum').value || "**** **** **** ****";
+    document.getElementById('previewExpiry').innerText = document.getElementById('cardExpiry').value || "MM/YY";
 }
 
 document.getElementById('paymentForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    processTransaction();
-});
-
-function processTransaction() {
     const processing = document.getElementById('paymentProcessing');
     const success = document.getElementById('paymentSuccess');
 
     processing.style.display = 'flex';
 
-    // Simulate Firestore Log
-    const bookingData = {
-        destination: activeTarget,
-        amount: totalAmount,
-        timestamp: new Date().toISOString(),
-        status: 'PAID',
-        member: document.getElementById('cardName').value || "Anonymous Platinum"
-    };
-
-    console.log("Syncing to Firebase Firestore...", bookingData);
-    if (db_fs) {
-        db_fs.collection('bookings').add(bookingData)
-            .then(() => console.log("Transaction Hard-Logged to Firebase"))
-            .catch(err => console.error("Firebase Sync Delayed:", err));
-    }
-
     setTimeout(() => {
         processing.style.display = 'none';
         success.style.display = 'flex';
-    }, 2500);
-}
+
+        // Mock Firebase Logic
+        if (db_fs) {
+            db_fs.collection('reservations').add({
+                dest: activeTarget,
+                amount: totalAmount,
+                time: new Date().toISOString()
+            });
+        }
+    }, 2000);
+});
 
 window.onclick = (e) => {
     if (e.target.className === 'modal') {

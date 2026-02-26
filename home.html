@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ghumro Platinum | Discover the Elite Travel</title>
+    <title>Bharat Platinum | Elite Indian Travel Club</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="home.css">
@@ -29,6 +29,7 @@
     </header>
 
     <main>
+        <!-- HERO SECTION -->
         <section id="hero">
             <div class="hero-content">
                 <span class="sub-title animate-up">Atithi Devo Bhava</span>
@@ -40,10 +41,11 @@
                             class="fas fa-dharmachakra"></i></button>
                 </div>
             </div>
+            <div class="hero-overlay"></div>
         </section>
 
-        <!-- PHASE 1: INSPIRATION (Destination Hub moved here) -->
-        <section id="destinations" class="section-p1 reveal-on-scroll" style="background: var(--midnight);">
+        <!-- PHASE 1: INSPIRATION -->
+        <section id="destinations" class="section-p1 reveal-on-scroll">
             <div class="jaali-pattern"></div>
             <div class="section-header">
                 <span class="sub-title">Elite Curation</span>
@@ -51,7 +53,7 @@
                 <div class="underline"></div>
             </div>
             <div class="impact-grid">
-                <div class="impact-card" onclick="openEliteDetail('Manali')">
+                <div class="impact-card" data-stagger="1" onclick="openEliteDetail('Manali')">
                     <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&q=80&w=800"
                         alt="Manali">
                     <div class="impact-body">
@@ -59,133 +61,113 @@
                         <p class="price-tag">Starts at ₹8,500</p>
                     </div>
                 </div>
-                <!-- ... other cards ... -->
+                <div class="impact-card" data-stagger="2" onclick="openEliteDetail('Goa')">
+                    <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&q=80&w=800"
+                        alt="Goa">
+                    <div class="impact-body">
+                        <h4>Goa Boho Chic</h4>
+                        <p class="price-tag">Starts at ₹5,500</p>
+                    </div>
+                </div>
+                <div class="impact-card" data-stagger="3" onclick="openEliteDetail('Ladakh')">
+                    <img src="https://images.unsplash.com/photo-1549130031-653927772886?auto=format&fit=crop&q=80&w=800"
+                        alt="Ladakh">
+                    <div class="impact-body">
+                        <h4>Ladakh Explorer</h4>
+                        <p class="price-tag">Starts at ₹18,500</p>
+                    </div>
+                </div>
+                <div class="impact-card" data-stagger="4" onclick="openEliteDetail('Kerala')">
+                    <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&q=80&w=800"
+                        alt="Kerala">
+                    <div class="impact-body">
+                        <h4>Alleppey Serenity</h4>
+                        <p class="price-tag">Starts at ₹12,000</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                <!-- Mappls RealView 360° -->
-                <section id="mappls-realview" class="section-p1 reveal-on-scroll">
-                    <div class="section-header">
-                        <span class="sub-title">Spatial Immersion</span>
-                        <h2>Mappls RealView 360°</h2>
-                        <div class="underline"></div>
+        <!-- PHASE 2: PLANNING -->
+        <section id="budget-advisor" class="section-p1 reveal-on-scroll">
+            <div class="section-header">
+                <span class="sub-title">Financial Intelligence</span>
+                <h2>Smart Budget Advisor</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="advisor-wrapper">
+                <div class="input-group">
+                    <label>₹</label>
+                    <input type="number" id="userBudget" placeholder="Enter Your Budget" oninput="liveSuggest()">
+                    <button class="btn-premium" onclick="liveSuggest()">Ask Advisor</button>
+                </div>
+                <div id="advisorOutput" class="impact-grid">
+                    <div class="empty-state"><i class="fas fa-wallet"></i>
+                        <p>Awaiting Financial Input...</p>
                     </div>
-                    <div class="vr-frame">
-                        <div id="vr-viewer" class="vr-screen">
-                            <div class="hud-system" id="hudSystem" style="display: none;">
-                                <div class="hud-compass"><i class="fas fa-compass" id="hudCompass"></i></div>
-                                <div class="hud-telemetry">
-                                    <p id="hudCoords">28.6139° N, 77.2090° E</p>
-                                    <small>STREAMING REALVIEW HD</small>
-                                </div>
-                            </div>
-                            <div class="vr-overlay-content">
-                                <h3>Deep-Dive Portal</h3>
-                                <p>High-definition 360° visuals powered by Mappls technology.</p>
-                                <div class="btn-group">
-                                    <button class="btn-premium" onclick="runRealView('Manali')">Manali</button>
-                                    <button class="btn-premium" onclick="runRealView('Ladakh')">Ladakh</button>
-                                    <button class="btn-premium" onclick="runRealView('Kerala')">Kerala</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                </div>
+            </div>
+        </section>
 
-                <!-- Smart Budget Advisor -->
-                <section id="budget-advisor" class="section-p1 reveal-on-scroll">
-                    <div class="section-header">
-                        <span class="sub-title">Financial Intelligence</span>
-                        <h2>Smart Budget Advisor</h2>
-                        <div class="underline"></div>
-                    </div>
-                    <div class="advisor-wrapper">
-                        <div class="input-group">
-                            <label>₹</label>
-                            <input type="number" id="userBudget" placeholder="Enter Your Budget"
-                                oninput="liveSuggest()">
-                            <button class="btn-premium" onclick="liveSuggest()">Ask Advisor</button>
-                        </div>
-                        <div id="advisorOutput" class="impact-grid">
-                            <!-- Dynamic Suggestion Cards -->
+        <!-- PHASE 3: EXPERIENCE -->
+        <section id="mappls-realview" class="section-p1 reveal-on-scroll">
+            <div class="section-header">
+                <span class="sub-title">Spatial Immersion</span>
+                <h2>Mappls RealView 360°</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="vr-frame">
+                <div id="vr-viewer" class="vr-screen">
+                    <div class="hud-system" id="hudSystem" style="display: none;">
+                        <div class="hud-compass"><i class="fas fa-compass" id="hudCompass"></i></div>
+                        <div class="hud-telemetry">
+                            <p id="hudCoords">28.6139° N, 77.2090° E</p>
+                            <small>STREAMING REALVIEW HD</small>
                         </div>
                     </div>
-                </section>
+                    <div class="vr-overlay-content">
+                        <h3>Deep-Dive Portal</h3>
+                        <p>High-definition 360° visuals powered by Mappls technology.</p>
+                        <div class="btn-group">
+                            <button class="btn-premium" onclick="runRealView('Manali')">Manali</button>
+                            <button class="btn-premium" onclick="runRealView('Ladakh')">Ladakh</button>
+                            <button class="btn-premium" onclick="runRealView('Kerala')">Kerala</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                <!-- Virtual Stylist -->
-                <section id="virtual-stylist" class="section-p1 reveal-on-scroll">
-                    <div class="section-header">
-                        <span class="sub-title">Lifestyle & Vibe</span>
-                        <h2>Virtual Stylist Try-On</h2>
-                        <div class="underline"></div>
-                    </div>
-                    <div class="stylist-grid">
-                        <div class="drop-zone" onclick="document.getElementById('photoInput').click()">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <h3>Upload Explorer Look</h3>
-                            <p>Upload your photo to see yourself in the destination vibe.</p>
-                            <input type="file" id="photoInput" style="display:none;" onchange="handleTryOn(event)"
-                                accept="image/*">
-                        </div>
-                        <div id="stylistPreview" class="tryon-display">
-                            <p>Styling insights will appear here...</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Destination Hub -->
-                <section id="destinations" class="section-p1 reveal-on-scroll">
-                    <div class="section-header">
-                        <span class="sub-title">Elite Curation</span>
-                        <h2>Experience Hub</h2>
-                        <div class="underline"></div>
-                    </div>
-                    <div class="impact-grid">
-                        <div class="impact-card" onclick="openEliteDetail('Manali')">
-                            <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&q=80&w=800"
-                                alt="Manali">
-                            <div class="impact-body">
-                                <h4>Manali Lifestyle</h4>
-                                <p class="price-tag">Starts at ₹8,500</p>
-                            </div>
-                        </div>
-                        <div class="impact-card" onclick="openEliteDetail('Goa')">
-                            <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&q=80&w=800"
-                                alt="Goa">
-                            <div class="impact-body">
-                                <h4>Goa Boho Chic</h4>
-                                <p class="price-tag">Starts at ₹5,500</p>
-                            </div>
-                        </div>
-                        <div class="impact-card" onclick="openEliteDetail('Ladakh')">
-                            <img src="https://images.unsplash.com/photo-1549130031-653927772886?auto=format&fit=crop&q=80&w=800"
-                                alt="Ladakh">
-                            <div class="impact-body">
-                                <h4>Ladakh Explorer</h4>
-                                <p class="price-tag">Starts at ₹18,500</p>
-                            </div>
-                        </div>
-                        <div class="impact-card" onclick="openEliteDetail('Kerala')">
-                            <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&q=80&w=800"
-                                alt="Kerala">
-                            <div class="impact-body">
-                                <h4>Alleppey Serenity</h4>
-                                <p class="price-tag">Starts at ₹12,000</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+        <!-- PHASE 4: LIFESTYLE STYLE -->
+        <section id="virtual-stylist" class="section-p1 reveal-on-scroll">
+            <div class="section-header">
+                <span class="sub-title">Lifestyle & Vibe</span>
+                <h2>Virtual Stylist Try-On</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="stylist-grid">
+                <div class="drop-zone" onclick="document.getElementById('photoInput').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Upload Explorer Look</h3>
+                    <p>Upload your photo to see yourself in the destination vibe.</p>
+                    <input type="file" id="photoInput" style="display:none;" onchange="handleTryOn(event)"
+                        accept="image/*">
+                </div>
+                <div id="stylistPreview" class="tryon-display">
+                    <p>Styling insights will appear here...</p>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Platinum Detail Modal -->
+    <!-- MODALS -->
     <div id="eliteModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeEliteModal()">&times;</span>
-            <div id="eliteModalData">
-                <!-- Dynamic Content -->
-            </div>
+            <div id="eliteModalData"></div>
         </div>
     </div>
 
-    <!-- Platinum Payment Modal -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closePaymentModal()">&times;</span>
@@ -194,7 +176,6 @@
                 <h2>Platinum Payment</h2>
                 <div class="underline"></div>
             </div>
-
             <div class="payment-box">
                 <div class="card-display">
                     <div class="card-chip"></div>
@@ -204,7 +185,6 @@
                         <span id="previewExpiry">MM/YY</span>
                     </div>
                 </div>
-
                 <form id="paymentForm" class="payment-form">
                     <div class="input-field">
                         <label>Cardholder Name</label>
@@ -216,50 +196,35 @@
                             oninput="updateCardPreview()">
                     </div>
                     <div class="form-row">
-                        <div class="input-field">
-                            <label>Expiry Date</label>
-                            <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5"
-                                oninput="updateCardPreview()">
-                        </div>
-                        <div class="input-field">
-                            <label>CVV</label>
-                            <input type="password" id="cardCvv" placeholder="***" maxlength="3">
-                        </div>
+                        <div class="input-field"><label>Expiry Date</label><input type="text" id="cardExpiry"
+                                placeholder="MM/YY" maxlength="5" oninput="updateCardPreview()"></div>
+                        <div class="input-field"><label>CVV</label><input type="password" id="cardCvv" placeholder="***"
+                                maxlength="3"></div>
                     </div>
-                    <div class="payment-summary" id="finalPaymentAmount">
-                        Total Amount: ₹0
-                    </div>
+                    <div class="payment-summary" id="finalPaymentAmount">Total Amount: ₹0</div>
                     <button type="submit" class="btn-premium" style="width: 100%;">Authorize Payment</button>
                 </form>
             </div>
-
             <div id="paymentProcessing" class="processing-overlay" style="display: none;">
                 <div class="spinner"></div>
                 <h3>Securing Transaction...</h3>
-                <p>Establishing encrypted link to Platinum Servers</p>
             </div>
-
             <div id="paymentSuccess" class="success-overlay" style="display: none;">
                 <i class="fas fa-check-circle"></i>
                 <h2>Payment Successful</h2>
-                <p>Your Platinum Ticket has been issued.</p>
                 <button class="btn-premium" onclick="location.reload()">Return Home</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <div class="footer-logo">
-            <i class="fas fa-gem"></i>
-            <span>Ghumro <strong>Platinum</strong></span>
-        </div>
+        <div class="footer-logo"><i class="fas fa-om"></i><span>Bharat <strong>Platinum</strong></span></div>
         <p>© 2026 The Elite Travel Club. Integrated with Mappls RealView.</p>
     </footer>
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
-
     <script src="script.js"></script>
 </body>
 

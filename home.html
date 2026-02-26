@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ghumro Platinum | Travel Lifestyle & More</title>
+    <title>Ghumro Platinum | Discover the Elite Travel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="home.css">
@@ -14,14 +14,14 @@
     <header>
         <nav class="glass-nav">
             <div class="logo">
-                <i class="fas fa-globe-americas"></i>
-                <span>Ghumro</span>
+                <i class="fas fa-gem"></i>
+                <span>Ghumro <strong>Platinum</strong></span>
             </div>
             <ul class="nav-links">
                 <li><a href="#" class="active">Home</a></li>
                 <li><a href="#mappls-realview">RealView</a></li>
-                <li><a href="#budget-planner">Advisor</a></li>
-                <li><a href="#virtual-stylist">Stylist</a></li>
+                <li><a href="#budget-advisor">Advisor</a></li>
+                <li><a href="#virtual-stylist">Lifestyle</a></li>
                 <li><a href="index.html" class="logout-btn">Logout</a></li>
             </ul>
         </nav>
@@ -30,166 +30,159 @@
     <main>
         <section id="hero">
             <div class="hero-content">
-                <h1 class="animate-up">The Future of <span>Travel Lifestyle</span></h1>
-                <p class="animate-up delay-1">Virtual try-ons, Mappls 360° RealView, and curated culinary adventures.
-                    Welcome to the elite tier of travel.</p>
-
-                <div class="search-container animate-up delay-2">
-                    <div class="search-tabs">
-                        <button class="tab-btn active"><i class="fas fa-plane"></i> Flights</button>
-                        <button class="tab-btn"><i class="fas fa-hotel"></i> Hotels</button>
-                    </div>
-                    <div class="search-bar">
-                        <div class="input-box">
-                            <label>Destination</label>
-                            <input type="text" placeholder="Where to?">
-                        </div>
-                        <div class="input-box">
-                            <label>Dates</label>
-                            <input type="date">
-                        </div>
-                        <button class="search-btn"><i class="fas fa-search"></i> Go</button>
-                    </div>
+                <span class="sub-title animate-up">The Future of Travel</span>
+                <h1 class="animate-up delay-1">Explore World with <span>Platinum</span> Intelligence</h1>
+                <p class="animate-up delay-2">Virtual try-ons, Mappls 360° RealView, and high-impact lifestyle planning.
+                    Welcome to the elite tier of exploration.</p>
+                <div class="btn-group animate-up delay-3">
+                    <button class="btn-premium" onclick="location.href='#destinations'">Start Journey <i
+                            class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- Mappls RealView 360° Section -->
-        <section id="mappls-realview" class="section-p1">
+        <!-- Mappls RealView 360° -->
+        <section id="mappls-realview" class="section-p1 reveal-on-scroll">
             <div class="section-header">
+                <span class="sub-title">Spatial Immersion</span>
                 <h2>Mappls RealView 360°</h2>
                 <div class="underline"></div>
             </div>
-            <div class="vr-container">
-                <div id="vr-viewer" class="vr-viewer-bg">
-                    <div class="hud-overlay" id="hudOverlay" style="display: none;">
-                        <div class="hud-top-left">
-                            <div class="compass-box"><i class="fas fa-compass" id="hudCompass"></i></div>
-                        </div>
-                        <div class="hud-bottom-right">
-                            <div class="coords-box">
-                                <p id="hudCoords">--.----° N, --.----° E</p>
-                                <small>REALVIEW HD ACTIVE</small>
-                            </div>
+            <div class="vr-frame">
+                <div id="vr-viewer" class="vr-screen">
+                    <div class="hud-system" id="hudSystem" style="display: none;">
+                        <div class="hud-compass"><i class="fas fa-compass" id="hudCompass"></i></div>
+                        <div class="hud-telemetry">
+                            <p id="hudCoords">28.6139° N, 77.2090° E</p>
+                            <small>STREAMING REALVIEW HD</small>
                         </div>
                     </div>
-                    <div class="vr-content">
-                        <h3>Virtual Portal</h3>
-                        <p>Experience high-definition 360° visuals before you fly.</p>
-                        <div class="vr-controls">
-                            <button class="vr-btn" onclick="startMapplsRealView('Manali')">Manali</button>
-                            <button class="vr-btn" onclick="startMapplsRealView('Ladakh')">Ladakh</button>
-                            <button class="vr-btn" onclick="startMapplsRealView('Kerala')">Kerala</button>
+                    <div class="vr-overlay-content">
+                        <h3>Deep-Dive Portal</h3>
+                        <p>High-definition 360° visuals powered by Mappls technology.</p>
+                        <div class="btn-group">
+                            <button class="btn-premium" onclick="runRealView('Manali')">Manali</button>
+                            <button class="btn-premium" onclick="runRealView('Ladakh')">Ladakh</button>
+                            <button class="btn-premium" onclick="runRealView('Kerala')">Kerala</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Premium Budget Advisor -->
-        <section id="budget-planner" class="section-p1">
+        <!-- Smart Budget Advisor -->
+        <section id="budget-advisor" class="section-p1 reveal-on-scroll">
             <div class="section-header">
-                <span class="sub-title">Travel Smart</span>
+                <span class="sub-title">Financial Intelligence</span>
                 <h2>Smart Budget Advisor</h2>
                 <div class="underline"></div>
             </div>
-            <div class="budget-card-container">
-                <div class="budget-input-wrapper">
-                    <div class="currency-symbol">₹</div>
-                    <input type="number" id="userBudget" placeholder="Enter Trip Budget"
-                        oninput="suggestDestinations()">
-                    <button class="advisor-btn" onclick="suggestDestinations()">Ask Advisor</button>
+            <div class="advisor-wrapper">
+                <div class="input-group">
+                    <label>₹</label>
+                    <input type="number" id="userBudget" placeholder="Enter Your Budget" oninput="liveSuggest()">
+                    <button class="btn-premium" onclick="liveSuggest()">Ask Advisor</button>
                 </div>
-                <div id="budgetSuggestions" class="impact-grid">
-                    <div class="empty-state"><i class="fas fa-wallet"></i>
-                        <p>Ready to plan?</p>
-                    </div>
+                <div id="advisorOutput" class="impact-grid">
+                    <!-- Dynamic Suggestion Cards -->
                 </div>
             </div>
         </section>
 
-        <!-- Virtual Stylist & Try-On Section -->
-        <section id="virtual-stylist" class="section-p1">
+        <!-- Virtual Stylist -->
+        <section id="virtual-stylist" class="section-p1 reveal-on-scroll">
             <div class="section-header">
-                <h2>Virtual Stylist & Try-On</h2>
-                <p>Upload your photo to see how you look in the destination's custom outfit vibe.</p>
+                <span class="sub-title">Lifestyle & Vibe</span>
+                <h2>Virtual Stylist Try-On</h2>
                 <div class="underline"></div>
             </div>
-            <div class="stylist-container">
-                <div class="upload-zone" onclick="triggerTryOn()">
-                    <i class="fas fa-camera"></i>
-                    <p>Click to Upload Your Photo</p>
-                    <input type="file" id="userPhoto" style="display:none;" onchange="handlePhotoUpload(event)"
+            <div class="stylist-grid">
+                <div class="drop-zone" onclick="document.getElementById('photoInput').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Upload Explorer Look</h3>
+                    <p>Upload your photo to see yourself in the destination vibe.</p>
+                    <input type="file" id="photoInput" style="display:none;" onchange="handleTryOn(event)"
                         accept="image/*">
                 </div>
-                <div id="tryOnPreview" class="preview-zone">
-                    <div class="placeholder-msg">Your Virtual Try-On will appear here...</div>
+                <div id="stylistPreview" class="tryon-display">
+                    <p>Styling insights will appear here...</p>
                 </div>
             </div>
         </section>
 
-        <section id="destinations" class="section-p1">
+        <!-- Destination Hub -->
+        <section id="destinations" class="section-p1 reveal-on-scroll">
             <div class="section-header">
-                <h2>Curated Experience Hub</h2>
+                <span class="sub-title">Elite Curation</span>
+                <h2>Experience Hub</h2>
                 <div class="underline"></div>
             </div>
-            <div class="dest-grid">
-                <div class="dest-card" onclick="openDetailModal('Manali')">
-                    <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=600"
+            <div class="impact-grid">
+                <div class="impact-card" onclick="openEliteDetail('Manali')">
+                    <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&q=80&w=800"
                         alt="Manali">
-                    <div class="card-overlay">
-                        <h3>Manali Lifestyle</h3>
-                        <p>Starts at ₹8,500</p>
-                        <button class="mini-btn">View Details</button>
+                    <div class="impact-body">
+                        <h4>Manali Lifestyle</h4>
+                        <p class="price-tag">Starts at ₹8,500</p>
                     </div>
                 </div>
-                <div class="dest-card" onclick="openDetailModal('Goa')">
-                    <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600"
+                <div class="impact-card" onclick="openEliteDetail('Goa')">
+                    <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&q=80&w=800"
                         alt="Goa">
-                    <div class="card-overlay">
-                        <h3>Goa Boho Chic</h3>
-                        <p>Starts at ₹5,500</p>
-                        <button class="mini-btn">View Details</button>
+                    <div class="impact-body">
+                        <h4>Goa Boho Chic</h4>
+                        <p class="price-tag">Starts at ₹5,500</p>
+                    </div>
+                </div>
+                <div class="impact-card" onclick="openEliteDetail('Ladakh')">
+                    <img src="https://images.unsplash.com/photo-1549130031-653927772886?auto=format&fit=crop&q=80&w=800"
+                        alt="Ladakh">
+                    <div class="impact-body">
+                        <h4>Ladakh Explorer</h4>
+                        <p class="price-tag">Starts at ₹18,500</p>
+                    </div>
+                </div>
+                <div class="impact-card" onclick="openEliteDetail('Kerala')">
+                    <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&q=80&w=800"
+                        alt="Kerala">
+                    <div class="impact-body">
+                        <h4>Alleppey Serenity</h4>
+                        <p class="price-tag">Starts at ₹12,000</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Detailed Modal (Enhanced for Culinary & Style) -->
-    <div id="detailModal" class="modal">
-        <div class="modal-content glass">
-            <span class="close-modal" onclick="closeDetailModal()">&times;</span>
-            <h2 id="detName">Destination</h2>
-            <p id="detPrice" class="price-text">₹0</p>
-            <hr>
-            <div class="detail-grid">
-                <div class="detail-info">
-                    <h4>Best Time</h4>
-                    <p id="detTime"></p>
-                    <h4 id="detCuisine">Cuisine</h4>
-                    <div id="detAttractions"></div>
-                </div>
+    <!-- Platinum Detail Modal -->
+    <div id="eliteModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEliteModal()">&times;</span>
+            <div id="eliteModalData">
+                <!-- Dynamic Content -->
             </div>
-            <button class="book-btn" onclick="openBookingModal()">Reserve Experience</button>
         </div>
     </div>
 
     <!-- Booking Modal -->
-    <div id="bookingModal" class="modal">
-        <div class="modal-content glass">
-            <span class="close-modal" onclick="closeBookingModal()">&times;</span>
-            <h2>Confirm Reservaton</h2>
-            <div id="bookingSummary" class="booking-summary"></div>
-            <button class="book-btn" onclick="processBooking()">Complete Booking</button>
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeOrderModal()">&times;</span>
+            <div class="section-header">
+                <h2>Platinum Reservation</h2>
+                <div class="underline"></div>
+            </div>
+            <div id="orderSummary" style="margin-bottom: 30px;"></div>
+            <button class="btn-premium" style="width: 100%;" onclick="confirmOrder()">Confirm & Pay</button>
         </div>
     </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="logo"><span>Ghumro Platinum</span></div>
-            <p>© 2026 The Elite Travel Club.</p>
+    <footer class="section-p1">
+        <div class="footer-logo">
+            <i class="fas fa-gem"></i>
+            <span>Ghumro <strong>Platinum</strong></span>
         </div>
+        <p>© 2026 The Elite Travel Club. Integrated with Mappls RealView.</p>
     </footer>
 
     <script src="script.js"></script>

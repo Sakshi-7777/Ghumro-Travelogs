@@ -1,14 +1,13 @@
-// --- DESTINATION METADATA ---
-const destData = {
+// --- THE ELITE DATABASE ---
+const db = {
     'Manali': {
         price: 8500,
         attractions: ['Rohtang Pass', 'Solang Valley', 'Hadimba Temple', 'Old Manali'],
         time: 'Oct to June',
         cuisine: 'Himachali Traditional',
-        bestDishes: ['Siddu with Ghee', 'Thukpa Soup', 'Kullu Trout', 'Chana Madra'],
-        outfitVibe: 'Alpine Cozy',
-        outfitItems: ['Puffer Jacket', 'Woolen Scarf', 'Combat Boots'],
-        coords: '32.2432° N, 77.1892° E',
+        dishes: ['Siddu with Ghee', 'Thukpa', 'Kullu Trout'],
+        outfit: { vibe: 'Alpine Cozy', items: ['Puffer Jacket', 'Thermal Layers', 'Boots'] },
+        coords: '32.24° N, 77.18° E',
         img: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=400'
     },
     'Kerala': {
@@ -16,220 +15,175 @@ const destData = {
         attractions: ['Alleppey Houseboats', 'Munnar Tea Gardens', 'Varkala Beach'],
         time: 'Sept to March',
         cuisine: 'Malabar Coastal',
-        bestDishes: ['Appam with Stew', 'Karimeen Pollichathu', 'Kerala Sadya', 'Prawn Roast'],
-        outfitVibe: 'Tropical Breezy',
-        outfitItems: ['Linen Shirt', 'Cotton Chinos', 'Sunglasses', 'Espadrilles'],
-        coords: '9.4981° N, 76.3388° E',
+        dishes: ['Appam & Stew', 'Karimeen', 'Sadya'],
+        outfit: { vibe: 'Tropical Breezy', items: ['Linen Shirt', 'Cotton Shorts', 'Espadrilles'] },
+        coords: '9.49° N, 76.33° E',
         img: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=400'
     },
     'Ladakh': {
         price: 18500,
         attractions: ['Pangong Lake', 'Nubra Valley', 'Shanti Stupa'],
         time: 'May to Sept',
-        cuisine: 'Trans-Himalayan Tibetan',
-        bestDishes: ['Mutton Momos', 'Skyu Pasta', 'Butter Tea', 'Tigmo Bread'],
-        outfitVibe: 'Rugged Explorer',
-        outfitItems: ['Gore-Tex Windbreaker', 'Thermal Base Layer', 'Hiking Boots'],
-        coords: '34.1526° N, 77.5771° E',
+        cuisine: 'Tibetan Fusion',
+        dishes: ['Mutton Momos', 'Skyu', 'Butter Tea'],
+        outfit: { vibe: 'Rugged Explorer', items: ['Windbreaker', 'High-Grip Boots', 'Thermal Gear'] },
+        coords: '34.15° N, 77.57° E',
         img: 'https://images.unsplash.com/photo-1549130031-653927772886?auto=format&fit=crop&w=400'
     },
     'Goa': {
         price: 5500,
-        attractions: ['Vagator Beach', 'Basilica of Bom Jesus', 'Anjuna Market'],
+        attractions: ['Vagator Beach', 'Basilica of Bom Jesus', 'Anjuna'],
         time: 'Nov to Feb',
-        cuisine: 'Indo-Portuguese Fusion',
-        bestDishes: ['Fish Recheado', 'Bebinca Cake', 'Prawn Balchão', 'Chicken Cafreal'],
-        outfitVibe: 'Boho Beach Chic',
-        outfitItems: ['Floral Kimono', 'Straw Hat', 'Flip Flops', 'Swim Trunks'],
-        coords: '15.2993° N, 74.1240° E',
+        cuisine: 'Indo-Portuguese',
+        dishes: ['Fish Recheado', 'Bebinca', 'Prawn Balchão'],
+        outfit: { vibe: 'Boho Beach Chic', items: ['Straw Hat', 'Kimono', 'Sunglasses'] },
+        coords: '15.29° N, 74.12° E',
         img: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=400'
     }
 };
 
-// --- AUTH LOGIC ---
-function setupAuth() {
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
+// --- PLATINUM ENGINE ---
+let activeTarget = 'Manali';
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            window.location.href = 'home.html';
-        });
-    }
+// Reveal On Scroll
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+}, { threshold: 0.1 });
 
-    if (registerForm) {
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Welcome to Ghumro! Account Created.');
-            window.location.href = 'home.html';
-        });
-    }
-}
+document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
-function toggleForms(type) {
-    const login = document.getElementById('loginForm');
-    const register = document.getElementById('registerForm');
-    if (type === 'register') {
-        login.style.display = 'none';
-        register.style.display = 'block';
-    } else {
-        register.style.display = 'none';
-        login.style.display = 'block';
-    }
-}
-
-// Check for ID presence before adding listeners
-document.addEventListener('DOMContentLoaded', () => {
-    setupAuth();
-    const showRegister = document.getElementById('showRegister');
-    const showLogin = document.getElementById('showLogin');
-    if (showRegister) showRegister.onclick = (e) => { e.preventDefault(); toggleForms('register'); };
-    if (showLogin) showLogin.onclick = (e) => { e.preventDefault(); toggleForms('login'); };
-});
-
-// --- BUDGET ADVISOR (Improved) ---
-function suggestDestinations() {
+// Budget Advisor (Live Search)
+function liveSuggest() {
     const budget = parseInt(document.getElementById('userBudget').value);
-    const container = document.getElementById('budgetSuggestions');
+    const output = document.getElementById('advisorOutput');
     if (!budget) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <i class="fas fa-wallet"></i>
-                <p>Your next journey starts with a single number...</p>
-            </div>`;
+        output.innerHTML = '<div class="empty-state"><i class="fas fa-wallet"></i><p>Awaiting Financial Input...</p></div>';
         return;
     }
 
-    const matches = Object.keys(destData).filter(key => destData[key].price <= budget);
+    const matches = Object.keys(db).filter(k => db[k].price <= budget);
     if (matches.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <i class="fas fa-sad-tear"></i>
-                <p>No matches yet. Try a slightly higher range for more impact!</p>
-            </div>`;
+        output.innerHTML = '<div class="empty-state"><i class="fas fa-sad-tear"></i><p>No Platinum Matches. Increase Budget for Impact.</p></div>';
         return;
     }
 
-    container.innerHTML = matches.map(name => `
-        <div class="impact-card animate-up" onclick="openDetailModal('${name}')">
-            <img src="${destData[name].img}" class="impact-img">
-            <div class="impact-info">
+    output.innerHTML = matches.map(name => `
+        <div class="impact-card" onclick="openEliteDetail('${name}')">
+            <img src="${db[name].img}">
+            <div class="impact-body">
                 <h4>${name}</h4>
-                <p>Starts @ ₹${destData[name].price.toLocaleString()}</p>
+                <p class="price-tag">₹${db[name].price.toLocaleString()}</p>
             </div>
         </div>
     `).join('');
 }
 
-// --- MAPPLS REALVIEW ---
-function startMapplsRealView(loc) {
+// Mappls RealView
+function runRealView(loc) {
+    activeTarget = loc;
     const viewer = document.getElementById('vr-viewer');
-    const hud = document.getElementById('hudOverlay');
-    const content = document.querySelector('.vr-content');
+    const hud = document.getElementById('hudSystem');
+    const overlay = document.querySelector('.vr-overlay-content');
     const coords = document.getElementById('hudCoords');
 
-    content.style.display = 'none';
-    hud.style.display = 'flex';
-    coords.innerText = destData[loc].coords;
-
-    // Background based on location
-    const images = {
-        'Manali': 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&q=80&w=1920',
-        'Ladakh': 'https://images.unsplash.com/photo-1549130031-653927772886?auto=format&fit=crop&q=80&w=1920',
-        'Kerala': 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&q=80&w=1920'
-    };
-    viewer.style.backgroundImage = `url('${images[loc]}')`;
-
-    let angle = 0;
-    const compassInt = setInterval(() => {
-        angle += 2;
-        document.getElementById('hudCompass').style.transform = `rotate(${angle}deg)`;
-        if (angle > 360) angle = 0;
-    }, 50);
+    overlay.innerHTML = `<h3>Syncing ${loc} Link...</h3><p>Spatial Alignment in Progress</p>`;
 
     setTimeout(() => {
-        content.style.display = 'block';
-        content.innerHTML = `
-            <h3>${loc} Visual Sync Complete</h3>
-            <p>RealView Stream established. Navigation active.</p>
-            <button class="vr-btn" onclick="location.reload()">Exit RealView</button>
+        viewer.style.backgroundImage = `url('${db[loc].img.replace('w=400', 'w=1920')}')`;
+        hud.style.display = 'flex';
+        coords.innerText = db[loc].coords;
+
+        let deg = 0;
+        setInterval(() => {
+            deg += 1;
+            document.getElementById('hudCompass').style.transform = `rotate(${deg}deg)`;
+        }, 60);
+
+        overlay.innerHTML = `
+            <h3>${loc} Synced</h3>
+            <p>RealView Established at ${db[loc].coords}</p>
+            <button class="btn-premium" onclick="location.reload()">Reset Link</button>
         `;
-    }, 2000);
+    }, 1500);
 }
 
-// --- MODAL & LIFESTYLE LOGIC ---
-let activeDest = '';
-
-function openDetailModal(name) {
-    activeDest = name;
-    const data = destData[name];
-    document.getElementById('detName').innerText = name;
-    document.getElementById('detPrice').innerText = `Est. Base: ₹${data.price.toLocaleString()}`;
-    document.getElementById('detTime').innerText = data.time;
-    document.getElementById('detCuisine').innerText = `${data.cuisine} Specialities`;
-
-    // Dish list
-    document.getElementById('detAttractions').innerHTML = `
-        <div class="lifestyle-section">
-            <h5><i class="fas fa-utensils"></i> Signature Dishes</h5>
-            <ul class="dish-list">${data.bestDishes.map(d => `<li>${d}</li>`).join('')}</ul>
-        </div>
-        <div class="lifestyle-section">
-            <h5><i class="fas fa-tshirt"></i> Suggested Outfit: ${data.outfitVibe}</h5>
-            <p class="outfit-items">${data.outfitItems.join(' • ')}</p>
-        </div>
-    `;
-
-    document.getElementById('detailModal').style.display = 'block';
-}
-
-function closeDetailModal() { document.getElementById('detailModal').style.display = 'none'; }
-
-// --- VIRTUAL TRY-ON SIMULATION ---
-function triggerTryOn() {
-    const fileInput = document.getElementById('userPhoto');
-    fileInput.click();
-}
-
-function handlePhotoUpload(event) {
+// Virtual Try-On
+function handleTryOn(event) {
     const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = function (e) {
-        const previewArea = document.getElementById('tryOnPreview');
-        previewArea.innerHTML = `
-            <div class="tryon-success">
-                <i class="fas fa-check-circle pulse"></i>
-                <img src="${e.target.result}" class="user-photo-preview">
-                <div class="outfit-overlay">
-                    <p>Styling for ${activeDest || 'Adventure'}...</p>
-                    <small>Matching ${destData[activeDest || 'Goa'].outfitVibe} Vibe</small>
-                </div>
+    reader.onload = (e) => {
+        const preview = document.getElementById('stylistPreview');
+        preview.innerHTML = `
+            <img src="${e.target.result}" class="tryon-img">
+            <div class="style-banner">
+                <h3>Vibe Match: ${db[activeTarget].outfit.vibe}</h3>
+                <p>Outfit: ${db[activeTarget].outfit.items.join(' • ')}</p>
+                <small>Impact Check: 98% Match</small>
             </div>
         `;
     };
     reader.readAsDataURL(file);
 }
 
-// Booking preservation
-function openBookingModal() {
-    const price = destData[activeDest || 'Manali'].price;
-    document.getElementById('bookingSummary').innerHTML = `
-        <p>Target: <strong>${activeDest}</strong></p>
-        <p>Vibe: <strong>${destData[activeDest].outfitVibe}</strong></p>
-        <p>Total Est: <strong>₹${(price + 1500).toLocaleString()}</strong></p>
+// Elite Modal
+function openEliteDetail(name) {
+    activeTarget = name;
+    const data = db[name];
+    const modal = document.getElementById('eliteModal');
+    const content = document.getElementById('eliteModalData');
+
+    content.innerHTML = `
+        <div class="detail-head">
+            <h2>${name} Explorer</h2>
+            <p class="price-big">₹${data.price.toLocaleString()}</p>
+        </div>
+        <div class="meta-block">
+            <h4><i class="fas fa-utensils"></i> Signature Cuisine</h4>
+            <div class="tag-cloud">${data.dishes.map(d => `<span class="tag">${d}</span>`).join('')}</div>
+        </div>
+        <div class="meta-block">
+            <h4><i class="fas fa-tshirt"></i> Destination Outfit</h4>
+            <p><strong>Vibe:</strong> ${data.outfit.vibe}</p>
+            <p style="color:#64748b;">Includes: ${data.outfit.items.join(', ')}</p>
+        </div>
+        <div class="meta-block">
+            <h4><i class="fas fa-map-marker-alt"></i> Top Attractions</h4>
+            <ul>${data.attractions.map(a => `<li>${a}</li>`).join('')}</ul>
+        </div>
+        <button class="btn-premium" style="width:100%;" onclick="openOrder()">Request Reservation</button>
     `;
-    document.getElementById('bookingModal').style.display = 'block';
-    closeDetailModal();
+    modal.style.display = 'block';
 }
 
-function closeBookingModal() { document.getElementById('bookingModal').style.display = 'none'; }
+function closeEliteModal() { document.getElementById('eliteModal').style.display = 'none'; }
 
-window.onclick = function (event) {
-    if (event.target.classList.contains('modal')) {
-        closeDetailModal();
-        closeBookingModal();
+function openOrder() {
+    const data = db[activeTarget];
+    document.getElementById('orderSummary').innerHTML = `
+        <p style="margin-bottom:10px;">Platinum Package: <strong>${activeTarget}</strong></p>
+        <p>Base Fee: <strong>₹${data.price.toLocaleString()}</strong></p>
+        <p>Luxury Tax: <strong>₹2,450</strong></p>
+        <hr style="margin:20px 0;">
+        <h3 style="color:#3a7bd5;">Total: ₹${(data.price + 2450).toLocaleString()}</h3>
+    `;
+    document.getElementById('orderModal').style.display = 'block';
+    closeEliteModal();
+}
+
+function closeOrderModal() { document.getElementById('orderModal').style.display = 'none'; }
+
+function confirmOrder() {
+    alert(`Platinum Reservation Confirmed for ${activeTarget}. Welcome to the club.`);
+    closeOrderModal();
+}
+
+window.onclick = (e) => {
+    if (e.target.className === 'modal') {
+        closeEliteModal();
+        closeOrderModal();
     }
-}
+};

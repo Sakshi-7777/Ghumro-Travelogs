@@ -9,7 +9,8 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         return;
     }
 
-    alert('Login Successful!');
+    // Success redirect
+    window.location.href = 'home.html';
 });
 
 document.getElementById('registerForm').addEventListener('submit', function (event) {
@@ -24,10 +25,8 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
         return;
     }
 
-    alert('Registration Successful!');
-    // Switch to login form after successful registration
-    document.getElementById('registerForm').style.display = 'none';
-    document.getElementById('loginForm').style.display = 'block';
+    alert('Registration Successful! Redirecting to home...');
+    window.location.href = 'home.html';
 });
 
 document.getElementById('showRegister').addEventListener('click', function (e) {

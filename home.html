@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore The World | Ghumro Travelogs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <header>
+        <nav class="glass-nav">
+            <div class="logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>Ghumro</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#packages">Packages</a></li>
+                <li><a href="#booking">Booking</a></li>
+                <li><a href="index.html" class="logout-btn">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1 class="animate-up">Discover Your Next <span>Adventure</span></h1>
+                <p class="animate-up delay-1">Explore stunning destinations, book luxury stays, and create unforgettable
+                    memories with Ghumro Travelogs.</p>
+
+                <div class="search-container animate-up delay-2">
+                    <div class="search-tabs">
+                        <button class="tab-btn active" data-tab="flights"><i class="fas fa-plane"></i> Flights</button>
+                        <button class="tab-btn" data-tab="hotels"><i class="fas fa-hotel"></i> Hotels</button>
+                    </div>
+                    <div class="search-bar">
+                        <div class="input-box">
+                            <label>Location</label>
+                            <input type="text" placeholder="Where are you going?">
+                        </div>
+                        <div class="input-box">
+                            <label>Date</label>
+                            <input type="date">
+                        </div>
+                        <div class="input-box">
+                            <label>Travelers</label>
+                            <input type="number" min="1" value="1">
+                        </div>
+                        <button class="search-btn"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="destinations" class="section-p1">
+            <div class="section-header">
+                <h2>Top Destinations</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="dest-grid">
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1506929113675-b929da606dc8?auto=format&fit=crop&q=80&w=600"
+                        alt="Maldives">
+                    <div class="card-overlay">
+                        <h3>Maldives</h3>
+                        <p>Starting at $1,200</p>
+                        <button class="mini-btn">Explore</button>
+                    </div>
+                </div>
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=600"
+                        alt="Kyoto">
+                    <div class="card-overlay">
+                        <h3>Kyoto, Japan</h3>
+                        <p>Starting at $850</p>
+                        <button class="mini-btn">Explore</button>
+                    </div>
+                </div>
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&q=80&w=600"
+                        alt="Venice">
+                    <div class="card-overlay">
+                        <h3>Venice, Italy</h3>
+                        <p>Starting at $950</p>
+                        <button class="mini-btn">Explore</button>
+                    </div>
+                </div>
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&q=80&w=600"
+                        alt="Taj Mahal">
+                    <div class="card-overlay">
+                        <h3>Agra, India</h3>
+                        <p>Starting at $400</p>
+                        <button class="mini-btn">Explore</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="packages" class="section-p1">
+            <div class="section-header">
+                <h2>Curated Packages</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="pack-container">
+                <div class="pack-box">
+                    <div class="pack-tag">Best Seller</div>
+                    <h3>European Escape</h3>
+                    <p>7 Days / 6 Nights through Paris, Rome & Amsterdam.</p>
+                    <div class="price">$2,499</div>
+                    <button class="book-btn">View Details</button>
+                </div>
+                <div class="pack-box">
+                    <div class="pack-tag">New</div>
+                    <h3>Bali Wellness</h3>
+                    <p>5 Days of Yoga, Meditation & Luxury Spas in Ubud.</p>
+                    <div class="price">$1,150</div>
+                    <button class="book-btn">View Details</button>
+                </div>
+                <div class="pack-box">
+                    <div class="pack-tag">Popular</div>
+                    <h3>Swiss Alps Trek</h3>
+                    <p>Explore the stunning peaks and valleys of Switzerland.</p>
+                    <div class="price">$1,800</div>
+                    <button class="book-btn">View Details</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>Ghumro</span>
+            </div>
+            <p>© 2026 Ghumro Travelogs. All Rights Reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

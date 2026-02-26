@@ -64,19 +64,18 @@ try {
 let activeTarget = 'Manali';
 let totalAmount = 0;
 
-// Dynamic Reveal System
+// Dynamic Reveal System (Threshold lowered for better reliability)
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
-            // Staggered reveal for children if data-stagger exists
             const staggers = entry.target.querySelectorAll('[data-stagger]');
             staggers.forEach((el, i) => {
                 setTimeout(() => el.classList.add('active'), i * 150);
             });
         }
     });
-}, { threshold: 0.15 });
+}, { threshold: 0.1 });
 
 document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
 
@@ -94,7 +93,7 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Budget Advisor (Live Search)
+// Budget Advisor
 function liveSuggest() {
     const budget = parseInt(document.getElementById('userBudget').value);
     const output = document.getElementById('advisorOutput');
@@ -171,7 +170,7 @@ function handleTryOn(event) {
     reader.readAsDataURL(file);
 }
 
-// Elite Modal
+// Modal Logic
 function openEliteDetail(name) {
     activeTarget = name;
     const data = db[name];
@@ -203,7 +202,6 @@ function openEliteDetail(name) {
 
 function closeEliteModal() { document.getElementById('eliteModal').style.display = 'none'; }
 
-// PAYMENT WORKFLOW
 function openPaymentGateway() {
     totalAmount = db[activeTarget].price + 2450;
     document.getElementById('finalPaymentAmount').innerText = `Total Amount: ₹${totalAmount.toLocaleString()}`;
@@ -223,19 +221,13 @@ document.getElementById('paymentForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const processing = document.getElementById('paymentProcessing');
     const success = document.getElementById('paymentSuccess');
-
     processing.style.display = 'flex';
-
     setTimeout(() => {
         processing.style.display = 'none';
         success.style.display = 'flex';
-
-        // Mock Firebase Logic
         if (db_fs) {
             db_fs.collection('reservations').add({
-                dest: activeTarget,
-                amount: totalAmount,
-                time: new Date().toISOString()
+                dest: activeTarget, amount: totalAmount, time: new Date().toISOString()
             });
         }
     }, 2000);
